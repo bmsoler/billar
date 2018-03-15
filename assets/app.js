@@ -9,13 +9,6 @@ import { createRouter } from 'router/index'
 import { sync } from 'vuex-router-sync'
 import VueLocalStorage from 'vue-localstorage'
 
-import '../static/css/iThing.css'
-import '../static/css/light.css'
-import '../static/css/main.css'
-import '../static/css/b.css'
-import '../static/css/zc.css'
-import '../static/css/animations.css'
-
 Vue.use(VueLocalStorage)
 
 Vue.use(Vuetify, { theme: {

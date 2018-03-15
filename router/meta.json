@@ -1,26 +1,26 @@
 {
   "/": {
-    "title": "Bubbles",
+    "title": "Billar",
     "description": "Mapas de relaciones",
     "keywords": ""
   },
   "/Datos": {
-    "title": "Bubbles - Listado de nodos",
+    "title": "Billar - Listado de nodos",
     "description": "",
     "keywords": ""
   },
   "/Links": {
-    "title": "Bubbles - Relaciones",
+    "title": "Billar - Relaciones",
     "description": "",
     "keywords": ""
   },
   "/Login": {
-    "title": "Bubbles - Login",
+    "title": "Billar - Login",
     "description": "",
     "keywords": ""
   },
   "/Redes": {
-    "title": "Bubbles",
+    "title": "Billar",
     "description": "",
     "keywords": ""
   }  
