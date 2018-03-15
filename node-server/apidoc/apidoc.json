@@ -1,0 +1,7 @@
+{
+"name": "API Asterisk",
+"version": "1.0.0",
+"description": "API para la comunicación entre la centralita Asterisk y Call Center de Ayesa",
+"title": "API Asterisk",
+"url" : "http://172.18.74.73:3000"
+}

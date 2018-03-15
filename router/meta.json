@@ -1,0 +1,27 @@
+{
+  "/": {
+    "title": "Bubbles",
+    "description": "Mapas de relaciones",
+    "keywords": ""
+  },
+  "/Datos": {
+    "title": "Bubbles - Listado de nodos",
+    "description": "",
+    "keywords": ""
+  },
+  "/Links": {
+    "title": "Bubbles - Relaciones",
+    "description": "",
+    "keywords": ""
+  },
+  "/Login": {
+    "title": "Bubbles - Login",
+    "description": "",
+    "keywords": ""
+  },
+  "/Redes": {
+    "title": "Bubbles",
+    "description": "",
+    "keywords": ""
+  }  
+}
