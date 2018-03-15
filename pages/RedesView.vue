@@ -33,14 +33,7 @@ export default {
     },
 
     computed: {
-        search: {
-            get () {
-                return this.$store.getters.getSearch
-            },
-            set(){
-                this.$store.state.search = $("#q").val()
-            }
-        }
+        
     }    
 }
 

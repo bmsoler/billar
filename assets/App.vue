@@ -243,15 +243,6 @@ export default {
 
     this.controlLogin()
 
-    $('.canvas').particles({
-      maxParticles: 100,
-      size: 5,
-      speed: 0.3,
-      color: '#ffffff',
-      minDist: 140,
-      connectParticles: true
-    });  
-
     this.loadNameApp()  
 
   },  
