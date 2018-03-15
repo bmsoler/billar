@@ -10,10 +10,10 @@ var config = {
   development: {    
     debug: true,
     root: rootPath,
-    server_url: 'http://localhost:3010/',
+    server_url: 'http://localhost:3020/',
     app: { name: 'node-server-network' },
-    port: process.env.PORT || 3010,
-    db: 'mongodb://localhost/network',
+    port: process.env.PORT || 3020,
+    db: 'mongodb://localhost/billar',
     TOKEN_SECRET: process.env.TOKEN_SECRET || "tokendevelopment"
   },
 
@@ -23,10 +23,10 @@ var config = {
   production: {
     debug: false,
     root: rootPath,
-    server_url: 'https://dev.aunnait.es:3010/',
+    server_url: 'https://dev.aunnait.es:3020/',
     app: { name: 'node-server-network' },
-    port: process.env.PORT || 3010,
-    db: 'mongodb://localhost/network',
+    port: process.env.PORT || 3020,
+    db: 'mongodb://localhost/billar',
     TOKEN_SECRET: process.env.TOKEN_SECRET || "tokendevelopment"   
   }
   

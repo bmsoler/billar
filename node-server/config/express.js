@@ -49,12 +49,6 @@ module.exports = function(app, config) {
     require(controller)(app);
   });
 
-  //ASTERISKS -------------------------------------------------------
-  // var asterisks = glob.sync(config.root + '/app/asterisks/*.js');
-  // asterisks.forEach(function (asterisk) {
-  //   require(asterisk)(app); 
-  // }); 
-
   app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
