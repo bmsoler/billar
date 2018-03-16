@@ -1,9 +1,7 @@
 var express = require('express'),
   router = express.Router(),
   glob = require('glob'),
-  mongoose = require('mongoose'), 
-  Nodo = mongoose.model('Nodo'),
-  Link = mongoose.model('Link'),
+  mongoose = require('mongoose'),   
   User = mongoose.model('User'),
   config = require('../../config/config'),
   path = require('path'),
@@ -51,9 +49,9 @@ router.post('/uploadImage', function (req, res, next) {
 
 
 
-// Route to authenticate a user (POST http://localhost:3010/authenticate)
-router.post('/authenticate', function (req, res) {
-  //find the user
+// Route to authenticate a user (POST http://localhost:3020/authenticate)
+router.post('/authenticate', function (req, res) {  
+  //console.log(req.body.email, req.body.password);
   User.findOne({
     email: req.body.email,
     password: req.body.password,

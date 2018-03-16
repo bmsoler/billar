@@ -437,7 +437,7 @@
     <!-- Botón para ir al gráfico -->
     <v-fab-transition>
       <v-btn
-        router to="/Redes"
+        router to="/Billar"
         dark
         fab
         fixed
@@ -547,7 +547,7 @@
 
     mounted() {
 
-      this.token = this.$localStorage.get('bubblesToken') 
+      this.token = this.$localStorage.get('billarToken') 
 
       //Ajuste al height del formularaio
       this.form_height = window.innerHeight - 230; 
@@ -564,9 +564,9 @@
           vm.num_conexiones = response.data.length
         })
         .catch(function (error) {
-            vm.$localStorage.remove('bubblesToken')
-            vm.$localStorage.remove('bubblesUser')
-            vm.$localStorage.remove('bubblesImg')            
+            vm.$localStorage.remove('billarToken')
+            vm.$localStorage.remove('billarUser')
+            vm.$localStorage.remove('billarImg')            
             vm.$store.commit('loginKO')                
             vm.$router.push('/') 
         });       
@@ -959,7 +959,7 @@
 
       goToChart (name){
         this.$store.state.search = name
-        this.$router.push('Redes')
+        this.$router.push('Billar')
       }
 
     }

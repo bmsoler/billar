@@ -5,21 +5,16 @@
     "keywords": ""
   },
   "/Datos": {
-    "title": "Billar - Listado de nodos",
+    "title": "Billar - Datos",
     "description": "",
     "keywords": ""
-  },
-  "/Links": {
-    "title": "Billar - Relaciones",
-    "description": "",
-    "keywords": ""
-  },
+  }, 
   "/Login": {
     "title": "Billar - Login",
     "description": "",
     "keywords": ""
   },
-  "/Redes": {
+  "/Billar": {
     "title": "Billar",
     "description": "",
     "keywords": ""

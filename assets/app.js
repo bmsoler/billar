@@ -9,6 +9,9 @@ import { createRouter } from 'router/index'
 import { sync } from 'vuex-router-sync'
 import VueLocalStorage from 'vue-localstorage'
 
+import '../static/css/jquery.bracket.min.css'
+import '../static/css/animations.css'
+
 Vue.use(VueLocalStorage)
 
 Vue.use(Vuetify, { theme: {

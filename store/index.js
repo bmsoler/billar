@@ -7,12 +7,10 @@ export function createStore () {
   return new Vuex.Store({ 
 
     state: {
-      login: true, // true => Activa la página de login, false => Entramos directamente
-      search: 'Televisión Murciana',
-      fondoDialog: 'fondoDialogAzul',
-      edit_node: null,
-      //URL_NODE_SERVER: 'http://localhost:3010'            //  DESARROLLO
-      URL_NODE_SERVER: 'https://dev.aunnait.es:3010'    //  PRODUCCIÓN
+      login: true, // true => Activa la página de login, false => Entramos directamente      
+      fondoDialog: 'fondoDialogAzul',      
+      URL_NODE_SERVER: 'http://localhost:3020'            //  DESARROLLO
+      //URL_NODE_SERVER: 'https://dev.aunnait.es:3020'    //  PRODUCCIÓN
     },
 
     actions: {
@@ -25,22 +23,10 @@ export function createStore () {
       },
       loginKO() {        
         this.state.login = true       
-      },  
-      setSearch (value) {
-        this.state.search = value
-      },
-      clearSearch () {
-        this.state.search = null
-      },
-      clearEditNode(){
-        this.state.edit_node = null
       }
     },
 
-    getters: {
-      getSearch: state => {
-        return state.search
-      },
+    getters: {     
       getTheme: state => {
         return state.fondoDialog
       }             

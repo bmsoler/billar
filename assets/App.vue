@@ -2,8 +2,7 @@
   <v-app :class="fondo">
 
     <v-toolbar fixed app :clipped-left="clipped">
-      <!-- <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon> -->
-      <!-- <v-toolbar-title v-text="title"></v-toolbar-title> -->
+     
       <v-toolbar-title>        
         <img style="width: 150px; margin-top: 7px" src="/static/logo_aunna.png" alt="AUNNAIT">        
       </v-toolbar-title>
@@ -12,33 +11,18 @@
       <v-spacer></v-spacer>
 
       <v-tooltip left>
-      <v-btn slot="activator" icon router to="/Redes">
+      <v-btn slot="activator" icon router to="/Billar">
         <v-icon>share</v-icon>
       </v-btn>
-      <span>BUBBLES</span>
+      <span>BILLIARD</span>
       </v-tooltip>
 
-      <v-tooltip left>
+      <!-- <v-tooltip left>
       <v-btn slot="activator" icon router to="/Datos">
         <v-icon>view_list</v-icon>
       </v-btn>
-      <span>GESTIÓN DE NODOS</span>
-      </v-tooltip>
-
-      <v-tooltip left>
-      <v-btn slot="activator" icon router to="/Links">
-        <v-icon>link</v-icon>
-      </v-btn>
-      <span>RELACIONES</span>
-      </v-tooltip>
-      
-      <!-- <v-btn icon router to="/Welcome">
-        <v-icon>info</v-icon>
-      </v-btn> -->
-
-      <!-- <v-btn icon>
-        <v-icon>search</v-icon>
-      </v-btn>       -->
+      <span>GESTIÓN</span>
+      </v-tooltip> -->
 
       <!-- SETTINGS -->
       <div class="text-xs-center" style="z-index: 999 !important">
@@ -58,7 +42,7 @@
                   </v-list-tile-avatar>
                   <v-list-tile-content>
                     <v-list-tile-title>{{username}}</v-list-tile-title>
-                    <v-list-tile-sub-title>Welcome to Bubbles</v-list-tile-sub-title>
+                    <v-list-tile-sub-title>Billiard Championship</v-list-tile-sub-title>
                   </v-list-tile-content>
                   <v-list-tile-action>
                   </v-list-tile-action>
@@ -124,7 +108,7 @@
           transition="dialog-bottom-transition" 
           :overlay="false">      
 
-          <canvas class="canvas fondo"></canvas>
+          <canvas class="fondo"></canvas>
 
           <v-card style="z-index: 500; background: transparent">
 
@@ -137,14 +121,6 @@
                 <div id="text">
                 <!-- content generated with JS -->  
                 </div>
-
-            <!-- <span style="position: absolute;
-              top: -100px;
-              font-size: 77px;
-              text-shadow: rgba(255, 255, 255, 0.5) 0px 3px 33px;
-              color: #ffffff8f;">
-              Bubbles
-            </span> -->
 
                 <v-card dark class="widget-title fadeIn" style="border-radius: 10px">
                   <v-card-text>
@@ -184,7 +160,6 @@
               </v-flex>  
 
           </v-card>          
-
 
         <v-snackbar
           :timeout="timeout"
@@ -227,10 +202,8 @@ export default {
       drawer: true,
       fixed: false,
       right: true,
-      rightDrawer: false,
-      //fondo: "desktop_verde",
-      fondo: "desktop_azul",
-      //fondo: "desktop_dev",
+      rightDrawer: false,      
+      fondo: "desktop_verde",
       menu: false,
       valid: false,  
       toInvalid: false,
@@ -254,18 +227,18 @@ export default {
   methods: {
 
     controlLogin(){
-      let token = this.$localStorage.get('bubblesToken')
+      let token = this.$localStorage.get('billarToken')
       //Si existe el token entonces estoy autenticado
       if ((token) && (token !== null) && (token !== 'undefined')){
         this.login = false
         this.$store.commit('loginOK')       
-        if ((this.$route.path === '/Login') || (this.$route.path === '/')) this.$router.push('Redes')       
-        this.username = this.$localStorage.get('bubblesUser')    
-        this.userImg = this.$localStorage.get('bubblesImg')   
+        if ((this.$route.path === '/Login') || (this.$route.path === '/')) this.$router.push('Billar')       
+        this.username = this.$localStorage.get('billarUser')    
+        this.userImg = this.$localStorage.get('billarImg')   
       }else {      
         this.login = this.$store.state.login  
-        this.username = this.$localStorage.get('bubblesUser')    
-        this.userImg = this.$localStorage.get('bubblesImg')   
+        this.username = this.$localStorage.get('billarUser')    
+        this.userImg = this.$localStorage.get('billarImg')   
       } 
     },
 
@@ -291,12 +264,12 @@ export default {
         .then(response => {
           //console.log('Authenticate:',response.data);    
           if (response.data.success){
-            this.$localStorage.set('bubblesToken', response.data.token)
-            this.$localStorage.set('bubblesUser', response.data.user.username)
-            this.$localStorage.set('bubblesImg', response.data.user.image)
+            this.$localStorage.set('billarToken', response.data.token)
+            this.$localStorage.set('billarUser', response.data.user.username)
+            this.$localStorage.set('billarImg', response.data.user.image)
             this.$store.commit('loginOK')   
             this.login = !this.login  
-            this.$router.push('Redes')  
+            this.$router.push('Billar')  
           }else {
             this.errorText = 'Email o contraseña incorrectos'
             this.toInvalid = true
@@ -309,9 +282,9 @@ export default {
     },
 
     logOut(){
-      this.$localStorage.remove('bubblesToken')
-      this.$localStorage.remove('bubblesUser')
-      this.$localStorage.remove('bubblesImg')
+      this.$localStorage.remove('billarToken')
+      this.$localStorage.remove('billarUser')
+      this.$localStorage.remove('billarImg')
       this.$store.commit('loginKO')
       this.login = !this.login  
       this.$router.push('/')
@@ -320,7 +293,7 @@ export default {
     loadNameApp(){
 
       // type anything here
-      const text = 'Bubbles';
+      const text = 'Billiard Championship';
 
       // this function turns a string into an array
       const createLetterArray = (string) => {
@@ -429,7 +402,8 @@ export default {
     min-width: 960px !important;
   }
   .desktop_verde {
-    background-image: url("/static/fondo_verde.png") !important;
+    /* background-image: url("/static/fondo_verde.png") !important; */
+    background-image: url("/static/fondo_verde2.jpg") !important;
     background-attachment: fixed !important;
     background-size: cover !important;
     min-width: 960px !important;
@@ -489,9 +463,12 @@ export default {
   }
 
   .fondo {
+    width: 100%;
+    height: 100%;
     position: absolute !important;
     z-index: 100 !important;
-    background: url(/static/fondo.jpg) no-repeat center center fixed !important; 
+    /* background: url(/static/fondo.jpg) no-repeat center center fixed !important;  */
+    background: url(/static/fondo2.jpeg) no-repeat center center fixed !important; 
     -webkit-background-size: cover !important;
     -moz-background-size: cover !important;
     -o-background-size: cover !important;
@@ -521,11 +498,11 @@ export default {
     font-style: oblique;
     letter-spacing: 3px;
     font-family: 'Fredoka One', sans-serif;
-    font-size: 3em;
+    font-size: 20px;
     line-height: 1em;
     text-align: center;
     position: absolute;
-    top: -40px;
+    top: -90px;
     transform: translateY(-50%);
   }
 
