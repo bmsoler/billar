@@ -3,6 +3,7 @@ var express = require('express'),
   glob = require('glob'),
   mongoose = require('mongoose'),   
   User = mongoose.model('User'),
+  Campeonato = mongoose.model('Campeonato'),
   config = require('../../config/config'),
   path = require('path'),
   http = require('http'),
@@ -47,6 +48,36 @@ router.post('/uploadImage', function (req, res, next) {
   });
 });
 
+
+/*
+* GET / Obtenemos todos los campeonatos
+*/
+router.get('/getCampeonatos', middleware.ensureAuthenticated, function (req, res, next) {
+  Campeonato.find({}, function (err, campeonatos) {
+    if (!err) {
+      res.status(200).send(campeonatos);
+    } else {
+      console.log(err);
+      res.status(500).send('Error en loadNodesForTable');
+    }
+  });
+});
+
+
+/*
+  AÑADIR CAMPEONATO
+*/
+router.post('/addCampeonato', middleware.ensureAuthenticated, function (req, res, next) {
+  let campeonato = req.body;
+  new Campeonato(campeonato).save(function (err, newCampeonato) {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(newCampeonato);
+    }
+  });
+});
 
 
 // Route to authenticate a user (POST http://localhost:3020/authenticate)

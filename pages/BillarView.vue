@@ -38,17 +38,6 @@ export default {
                     $('<div class="demo"></div>').appendTo(demo)
                 })
             })
-
-            /* Custom data objects passed as teams */
-            var customData = {
-                teams : [
-                    [{name: "Jaime", image: 'jaime'}, {name: "Ángel", image: 'angel'}],
-                    [{name: "Pablo", image: 'pablo'}, {name: "Jorge", image: 'jorge'}],
-                    [{name: "Jesús", image: 'jesus'}, {name: "Blas", image: 'blas'}],
-                    [null, null],
-                ],
-                results : []
-            }
             
             /* Edit function is called when team label is clicked */
             function edit_fn(container, data, doneCb) {                
@@ -97,27 +86,72 @@ export default {
                 }
             }
             
-            $(function() {
-                $('div#customHandlers .demo').bracket({
-                    init: customData,
-                    teamWidth: 90,
-                    scoreWidth: 45,
-                    matchMargin: 50,
-                    roundMargin: 90,   
-                    disableToolbar: !vm.is_admin, 
-                    disableTeamEdit: !vm.is_admin,
-                    centerConnectors: false,
-                    save: function(data, userData){                    
-                        console.log('Entro en save!!!', data)
-                    },                     
-                    decorator: {
-                        edit: edit_fn,
-                        render: render_fn
-                    }
+            axios.get(this.$store.state.URL_NODE_SERVER+'/getCampeonatos',
+                { headers : {'Authorization': 'Bearer ' + vm.token }})
+                .then(function (response) {
+                    //console.log(response.data);
+
+                    let customData = response.data[0]
+
+                    //Montamos el cuadrante
+                    $(function() {
+                        $('div#customHandlers .demo').bracket({
+                            init: customData,
+                            teamWidth: 90,
+                            scoreWidth: 45,
+                            matchMargin: 50,
+                            roundMargin: 90,   
+                            disableToolbar: !vm.is_admin, 
+                            disableTeamEdit: !vm.is_admin,
+                            centerConnectors: false,
+                            save: function(data, userData){                    
+                                console.log('Entro en save!!!', data)
+                            },                     
+                            decorator: {
+                                edit: edit_fn,
+                                render: render_fn
+                            }
+                        })
+                    })
+
                 })
-            })
+                .catch(function (error) {
+                    vm.$localStorage.remove('billarToken')
+                    vm.$localStorage.remove('billarUser')
+                    vm.$localStorage.remove('billarImg')                                            
+                    vm.$router.push('/') 
+                }); 
+
+            
+
+
+            //this.addCampeonato()
 
         }, // ### init
+
+
+        addCampeonato() {
+
+            let vm = this
+
+            let campeonato = {
+                name: 'I Campeonato de billar',
+                teams : [
+                    [{name: "Jaime", image: 'jaime'}, {name: "Ángel", image: 'angel'}],
+                    [{name: "Pablo", image: 'pablo'}, {name: "Jorge", image: 'jorge'}],
+                    [{name: "Jesús", image: 'jesus'}, {name: "Blas", image: 'blas'}],
+                    [null, null],
+                ],
+                results : []
+            }
+
+            axios.post(this.$store.state.URL_NODE_SERVER+`/addCampeonato`, campeonato,
+                { headers : {'Authorization': 'Bearer ' + vm.token }})
+                .then(response => {
+                    console.log(response.data);                                       
+                }).catch(e => {console.log(e)}) 
+
+        }
 
     },
 
