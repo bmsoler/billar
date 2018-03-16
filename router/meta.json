@@ -1,21 +1,21 @@
 {
   "/": {
-    "title": "Billar",
+    "title": "Campeonatos de Billar",
     "description": "Mapas de relaciones",
     "keywords": ""
   },
   "/Datos": {
-    "title": "Billar - Datos",
+    "title": "Campeonatos de Billar",
     "description": "",
     "keywords": ""
   }, 
   "/Login": {
-    "title": "Billar - Login",
+    "title": "Campeonatos de Billar",
     "description": "",
     "keywords": ""
   },
   "/Billar": {
-    "title": "Billar",
+    "title": "Campeonatos de Billar",
     "description": "",
     "keywords": ""
   }  

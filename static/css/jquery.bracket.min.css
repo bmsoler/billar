@@ -54,7 +54,7 @@ div.jQBracket .team{
     cursor:default;
     /* Blas */
     height: 40px;   
-    border-radius: 2px; 
+    border-radius: 3px; 
 }
 div.jQBracket .team:first-child{
     border-bottom:1px solid #999
@@ -144,14 +144,16 @@ div.jQBracket .teamContainer{
     float:left
 }
 div.jQBracket .connector{
-    border:2px solid #666;
+    /* border:2px solid #666; */
+    border:2px solid #fff;
     border-left-style:none;
     position:absolute;
     z-index:1
 }
 div.jQBracket .connector div.connector{
     border:0;
-    border-bottom:2px solid #666;
+    /* border-bottom:2px solid #666; */
+    border-bottom:2px solid #fff;
     height:0;
     position:absolute
 }
