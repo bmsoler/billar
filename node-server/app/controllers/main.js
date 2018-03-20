@@ -48,7 +48,6 @@ router.post('/uploadImage', function (req, res, next) {
   });
 });
 
-
 /*
 * GET / Obtenemos todos los campeonatos
 */
@@ -58,11 +57,39 @@ router.get('/getCampeonatos', middleware.ensureAuthenticated, function (req, res
       res.status(200).send(campeonatos);
     } else {
       console.log(err);
-      res.status(500).send('Error en loadNodesForTable');
+      res.status(500).send('Error en getCampeonatos');
     }
   });
 });
 
+/*
+* GET / Obtenemos todos los participantes
+*/
+router.get('/getParticipantes', middleware.ensureAuthenticated, function (req, res, next) {
+  User.find({}, function (err, participantes) {
+    if (!err) {
+      res.status(200).send(participantes);
+    } else {
+      console.log(err);
+      res.status(500).send('Error en getParticipantes');
+    }
+  });
+});
+
+/*
+  AÑADIR PARTICIPANTE
+*/
+router.post('/addParticipante', middleware.ensureAuthenticated, function (req, res, next) {
+  let participante = req.body;
+  new User(participante).save(function (err, newParticipante) {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(newParticipante);
+    }
+  });
+});
 
 /*
   AÑADIR CAMPEONATO
@@ -79,13 +106,72 @@ router.post('/addCampeonato', middleware.ensureAuthenticated, function (req, res
   });
 });
 
+/*
+  ACTUALIZAR CAMPEONATO
+*/
+router.post('/saveCampeonato', middleware.ensureAuthenticated, function (req, res, next) {
+  let campeonato = req.body;
+  let _id = campeonato._id;
+  delete campeonato._id;
+  Campeonato.findByIdAndUpdate(_id, campeonato, function (err, result) {
+    if (err) {
+      console.log("(saveCampeonato) Problem with Mongodb " + err + '\n');
+      res.status(500).send("(saveCampeonato) Problem with Mongodb " + err);
+    } else {        
+      res.status(200).send({ result: "Campeonato actualizado" });
+    }
+  });
+});
+
+/*
+  ACTUALIZAR PARTICIPANTE
+*/
+router.post('/saveParticipante', middleware.ensureAuthenticated, function (req, res, next) {
+  let participante = req.body;
+  User.findByIdAndUpdate(participante._id, participante, function (err, result) {
+    if (err) {
+      console.log("(saveParticipante) Problem with Mongodb " + err + '\n');
+      res.status(500).send("(saveParticipante) Problem with Mongodb " + err);
+    } else {        
+      res.status(200).send({ result: "Participante actualizado" });
+    }
+  });
+});
+
+/*
+* Borrado de participantes
+*/
+router.post('/deleteParticipante', middleware.ensureAuthenticated, function (req, res, next) {
+  let participante = req.body;
+  User.remove({ _id: participante._id }, function (err) {
+    if (err) {
+      res.status(500).send("(deleteParticipante) Problem with Mongodb " + err);
+    } else {      
+      res.status(200).send({ remove: 'OK' });
+    }
+  });
+});
+
+/*
+* Borrado de campeonatos
+*/
+router.post('/deleteCampeonato', middleware.ensureAuthenticated, function (req, res, next) {
+  let campeonato = req.body;
+  Campeonato.remove({ _id: campeonato._id }, function (err) {
+    if (err) {
+      res.status(500).send("(deleteCampeonato) Problem with Mongodb " + err);
+    } else {      
+      res.status(200).send({ remove: 'OK' });
+    }
+  });
+});
 
 // Route to authenticate a user (POST http://localhost:3020/authenticate)
 router.post('/authenticate', function (req, res) {  
-  //console.log(req.body.email, req.body.password);
+  console.log(req.body.email, req.body.password);
   User.findOne({
     email: req.body.email,
-    password: req.body.password,
+    password: req.body.password
   }, function (err, user) {
 
     if (err) throw err;

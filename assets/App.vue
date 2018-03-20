@@ -4,7 +4,12 @@
     <v-toolbar fixed app :clipped-left="clipped">
      
       <v-toolbar-title>        
-        <img style="width: 150px; margin-top: 7px" src="/static/logo_aunna.png" alt="AUNNAIT">        
+        <!-- <img style="width: 150px; margin-top: 7px" src="/static/logo_aunna.png" alt="AUNNAIT">   -->
+
+        <div id="text2">
+        <!-- content generated with JS -->  
+        </div>        
+
       </v-toolbar-title>
 
       <!-- Opciones de la derecha -->
@@ -12,17 +17,24 @@
 
       <v-tooltip left>
       <v-btn slot="activator" icon router to="/Billar">
-        <v-icon>share</v-icon>
+        <v-icon>device_hub</v-icon>
       </v-btn>
-      <span>BILLIARD</span>
-      </v-tooltip>
+      <span>VER CUADRANTE DEL CAMPEONATO</span>
+      </v-tooltip> 
 
-      <!-- <v-tooltip left>
+      <v-tooltip left>
       <v-btn slot="activator" icon router to="/Datos">
         <v-icon>view_list</v-icon>
       </v-btn>
-      <span>GESTIÓN</span>
-      </v-tooltip> -->
+      <span>CAMPEONATOS Y PARTICIPANTES</span>
+      </v-tooltip>
+
+      <v-tooltip left>
+      <v-btn slot="activator" icon router to="/Reglamento">
+        <v-icon>gavel</v-icon>
+      </v-btn>
+      <span>REGLAMENTO</span>
+      </v-tooltip>
 
       <!-- SETTINGS -->
       <div class="text-xs-center" style="z-index: 999 !important">
@@ -194,9 +206,11 @@ export default {
   data() {
     return { 
       login: null,     
+      admin: null,     
       username: '',  
       userImg: '',  
-      email: 'admin@aunnait.es',
+      userID: null,  
+      email: 'bmateo@aunnait.es',
       password: null,
       clipped: false,
       drawer: true,
@@ -234,7 +248,14 @@ export default {
         this.$store.commit('loginOK')       
         if ((this.$route.path === '/Login') || (this.$route.path === '/')) this.$router.push('Billar')       
         this.username = this.$localStorage.get('billarUser')    
-        this.userImg = this.$localStorage.get('billarImg')   
+        this.userImg = this.$localStorage.get('billarImg')  
+        let admin = this.$localStorage.get('billarAdmin')  
+        if ((admin) && (admin === 'true')){
+          this.admin = true
+          this.$store.commit('isAdmin') 
+        }else {
+          this.admin = false
+        }
       }else {      
         this.login = this.$store.state.login  
         this.username = this.$localStorage.get('billarUser')    
@@ -259,7 +280,7 @@ export default {
 
     autenticate(){      
       let password = sha256(this.password)
-      //console.log('sha password:',password)
+      //console.log('sha password:',password) 
       axios.post(this.$store.state.URL_NODE_SERVER+'/authenticate', { email: this.email, password: password } )
         .then(response => {
           //console.log('Authenticate:',response.data);    
@@ -267,8 +288,15 @@ export default {
             this.$localStorage.set('billarToken', response.data.token)
             this.$localStorage.set('billarUser', response.data.user.username)
             this.$localStorage.set('billarImg', response.data.user.image)
+            this.$localStorage.set('billarAdmin', response.data.user.admin)
             this.$store.commit('loginOK')   
             this.login = !this.login  
+            if (response.data.user.admin) {
+              this.admin = true
+              this.$store.commit('isAdmin') 
+            }else {
+              this.admin = false
+            }
             this.$router.push('Billar')  
           }else {
             this.errorText = 'Email o contraseña incorrectos'
@@ -285,6 +313,7 @@ export default {
       this.$localStorage.remove('billarToken')
       this.$localStorage.remove('billarUser')
       this.$localStorage.remove('billarImg')
+      this.$localStorage.remove('billarAdmin')
       this.$store.commit('loginKO')
       this.login = !this.login  
       this.$router.push('/')
@@ -329,6 +358,7 @@ export default {
       // use a promise to output text layers into DOM first
       const outputLayers = new Promise(function(resolve, reject) {
             document.getElementById('text').innerHTML = createLetterContainers(createLetterLayers(createLetterArray(text))).join('');
+            document.getElementById('text2').innerHTML = createLetterContainers(createLetterLayers(createLetterArray(text))).join('');
             resolve();
       });
 
@@ -409,7 +439,7 @@ export default {
     min-width: 960px !important;
   }
   .fondoDialogVerde{
-      background-image: url(/static/fondo_verde.png) !important;
+      background-image: url(/static/fondo_verde2.jpg) !important;
       background-attachment: fixed !important;
       background-size: cover !important;
   }
@@ -509,6 +539,26 @@ export default {
   #text:hover {
     cursor: default;
   }
+
+  #text2 {  
+    width: 340px;
+    text-shadow: rgba(255, 255, 255, 0.5) 0px 3px 20px;
+    color: #ffffff5c;
+    font-style: oblique;
+    letter-spacing: 3px;
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 25px;
+    line-height: 1em;
+    text-align: center;
+    margin-top: 30px;
+    /* position: absolute;
+    top: -90px; */
+    transform: translateY(-50%);
+  }
+
+  #text2:hover {
+    cursor: default;
+  }  
   
   .wrapper {
     display: inline-block;

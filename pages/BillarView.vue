@@ -3,7 +3,7 @@
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center justify-center>
 
-        <div id="main" style="margin-top: 30px" class="fadeIn">
+        <div id="main" style="margin-top: 10px; z-index: 1000" class="fadeIn">
             <div id="customHandlers" style="display: inline-block;"></div>           
         </div>
 
@@ -14,14 +14,14 @@
 </template> 
 
 <script>
-
+ 
 import axios from 'axios'
 
 export default {
     data () {
       return {                         
           token: null,
-          is_admin: true
+          admin: null
       }
     },
 
@@ -78,14 +78,19 @@ export default {
                     case "entry-default-win":
                     case "entry-complete":
                         if ((data.image === 'angel') || (data.image === 'jaime') || (data.image === 'jesus')) {
-                            container.append('<img src="static/img/'+data.image+'.jpg" width="25px" /> ').append(data.name)
+                            container
+                                .append('<img src="static/img/'+data.image+'.jpg" width="25px" style="position: absolute; width: 34px;"/> ')
+                                .append('<p style="margin-left: 40px;margin-top: 7px;">'+data.name+'</p>')
                         }else {
-                            container.append('<img src="static/img/'+data.image+'.png" width="25px" /> ').append(data.name)
+                            container
+                                .append('<img src="static/img/'+data.image+'.png" width="25px" style="position: absolute; width: 34px;"/> ')
+                                .append('<p style="margin-left: 40px;margin-top: 7px;">'+data.name+'</p>')
                         }                    
                         return;
                 }
             }
             
+            /* Obtención del campeonato activo o seleccionado */
             axios.get(this.$store.state.URL_NODE_SERVER+'/getCampeonatos',
                 { headers : {'Authorization': 'Bearer ' + vm.token }})
                 .then(function (response) {
@@ -97,15 +102,20 @@ export default {
                     $(function() {
                         $('div#customHandlers .demo').bracket({
                             init: customData,
-                            teamWidth: 90,
+                            teamWidth: 100,
                             scoreWidth: 45,
                             matchMargin: 50,
                             roundMargin: 90,   
-                            disableToolbar: !vm.is_admin, 
-                            disableTeamEdit: !vm.is_admin,
+                            disableToolbar: !vm.admin, 
+                            disableTeamEdit: !vm.admin,
                             centerConnectors: false,
-                            save: function(data, userData){                    
-                                console.log('Entro en save!!!', data)
+                            save: function(data, userData){           
+                                // Actualización del campeonato
+                                axios.post(vm.$store.state.URL_NODE_SERVER+`/saveCampeonato`, data,
+                                    { headers : {'Authorization': 'Bearer ' + vm.token }})
+                                    .then(response => {
+                                        //console.log(response.data);                                       
+                                    }).catch(e => {console.log(e)})
                             },                     
                             decorator: {
                                 edit: edit_fn,
@@ -123,12 +133,9 @@ export default {
                 }); 
 
             
-
-
             //this.addCampeonato()
 
         }, // ### init
-
 
         addCampeonato() {
 
@@ -156,6 +163,8 @@ export default {
     },
 
     mounted(){
+
+        this.admin = this.$store.state.admin
 
         this.token = this.$localStorage.get('billarToken')
 

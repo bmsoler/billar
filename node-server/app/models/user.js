@@ -6,7 +6,7 @@ var UserSchema = new Schema({
 	email: { type: String },
 	password: { type: String },
 	image: { type: String, default: 'https://pbs.twimg.com/profile_images/824964972711129088/ZZ8owGYZ.jpg' },
-	role: { type: Number, default: 2 } //=> 1 - Administrador, 2 - Solo lectura
+	admin: { type: Boolean, default: false }
 
 }, { timestamps: { createdAt: 'created_at' } });
 

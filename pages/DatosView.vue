@@ -2,57 +2,19 @@
 
 <div>
 
-  <!-- LÍNEA DE INFORMACIÓN SUPERIOR -->
-  <v-layout row wrap align-start mx-auto mb-3> 
-
-      <v-flex d-flex xs12 md6 lg4 style="padding: 5px">
-        <v-card color="cyan" dark>
-          <v-card-title primary class="title texto">
-            <v-icon style="margin-right: 10px;">business</v-icon>
-            Instituciones y organizaciones
-            <v-spacer></v-spacer>
-            <span>{{num_instituciones}}</span>            
-          </v-card-title>
-        </v-card>
-      </v-flex> 
-
-      <v-flex d-flex xs12 md6 lg4 style="padding: 5px">
-        <v-card color="purple" dark>
-          <v-card-title primary class="title texto">
-            <v-icon style="margin-right: 10px;">supervisor_account</v-icon> 
-            Personas
-            <v-spacer></v-spacer>
-            <span>{{num_personas}}</span>             
-          </v-card-title>          
-        </v-card>
-      </v-flex> 
-
-      <v-flex d-flex xs12 md6 lg4 style="padding: 5px">
-        <v-card color="green lighten-2" dark router to="/Links">
-          <v-card-title primary class="title texto">            
-            <v-icon style="margin-right: 10px;">link</v-icon>            
-            Conexiones
-            <v-spacer></v-spacer>
-            <span>{{num_conexiones}}</span>             
-          </v-card-title>          
-        </v-card>
-      </v-flex> 
-
-  </v-layout>
-
   <v-layout row wrap align-start mx-auto> 
 
-    <!-- LISTADO DE INSTITUCIONES Y OGANIZACIONES -->
-    <v-flex d-flex xs12 md4 lg4 style="padding: 5px">
+    <!-- LISTADO DE CAMPEONATOS -->
+    <v-flex d-flex xs12 md6 lg6 style="padding: 5px">
       <v-card class="widget-title fadeIn" >
-        <v-toolbar dark style="height: 100px; background: transparent">
+        <v-toolbar dark style="height: 100px; background: transparent; z-index: 1000">
           <v-toolbar-title class="texto">
-            Instituciones y organizaciones
+            Campeonatos
             <v-tooltip right>
-            <v-btn slot="activator" icon @click="openDialogAddNodo">
+            <v-btn v-if="admin" slot="activator" icon @click="openDialogAddCampeonato">
               <v-icon>playlist_add</v-icon>
             </v-btn>
-            <span>Añadir institución u organización</span>
+            <span>Añadir campeonato</span>
             </v-tooltip>
           </v-toolbar-title>
           <v-spacer></v-spacer>
@@ -80,12 +42,12 @@
             rows-per-page-text="Filas por página"
             :rows-per-page-items="rows_per_page"
             :headers="headers"
-            :items="filterInstituciones"
+            :items="filterCampeonatos"
             :search="search"
             style="
           border-radius: 3px">
             <template slot="items" slot-scope="props">
-              <td style="padding-top: 5px; padding-bottom: 5px; cursor: pointer" @click="editNode(props.item)">
+              <td style="padding-top: 5px; padding-bottom: 5px; cursor: pointer" @click="editCampeonato(props.item)">
                 <v-avatar
                   size='30'
                   class="grey lighten-4">
@@ -94,19 +56,19 @@
                       style="width: 50px; height: 50px">
                 </v-avatar>
               </td>
-              <td style="cursor: pointer" @click="editNode(props.item)">{{ props.item.name }}</td>
+              <td style="cursor: pointer" @click="editCampeonato(props.item)">{{ props.item.name }}</td>
               <td>
                 <v-tooltip left>
-                <v-btn slot="activator" small color="white" icon @click="goToChart(props.item.name)">
-                  <v-icon color="green lighten-2" style="font-size: 20px; color: #81c784 !important">share</v-icon>
+                <v-btn v-if="admin" slot="activator" small color="white" icon @click="goToChart(props.item.name)">
+                  <v-icon color="green lighten-2" style="font-size: 20px; color: #81c784 !important">device_hub</v-icon>
                 </v-btn>       
-                <span>Mostrar en bubbles</span>
+                <span>Mostrar cuadrante</span>
                 </v-tooltip>    
                 <v-tooltip left>     
-                <v-btn slot="activator" small color="white" icon @click="openDialog(props.item)">
+                <v-btn v-if="admin" slot="activator" small color="white" icon @click="openDialog2(props.item)">
                   <v-icon style="color: grey !important; font-size: 20px">delete_sweep</v-icon>
                 </v-btn>
-                <span>Eliminar nodo</span>
+                <span>Eliminar campeonato</span>
                 </v-tooltip>
               </td>
             </template>
@@ -119,17 +81,17 @@
       </v-card>        
     </v-flex>  
 
-    <!-- LISTADO DE PERSONAS -->
-    <v-flex d-flex xs12 md4 lg4 style="padding: 5px">
+    <!-- LISTADO DE PARTICIPANTES -->
+    <v-flex d-flex xs12 md6 lg6 style="padding: 5px">
       <v-card class="widget-title fadeIn" >
         <v-toolbar dark style="height: 100px; background: transparent">
           <v-toolbar-title class="texto">
-            Personas
+            Participantes
             <v-tooltip right>
-            <v-btn slot="activator" icon @click="openDialogAddNodo">
+            <v-btn v-if="admin" slot="activator" icon @click="openDialogAddParticipante">
               <v-icon>playlist_add</v-icon>
             </v-btn>
-            <span>Añadir persona</span>
+            <span>Añadir participante</span>
             </v-tooltip>            
             </v-toolbar-title>
           <v-spacer></v-spacer>
@@ -155,14 +117,14 @@
           <v-data-table
             rows-per-page-text="Filas por página"
             :rows-per-page-items="rows_per_page"          
-            :headers="headers"
-            :items="filterPersonas"
+            :headers="headers2"
+            :items="filterParticipantes"
             :search="searchPerson"
             style="
           border-radius: 3px"
             >
             <template slot="items" slot-scope="props">
-              <td style="padding-top: 5px; padding-bottom: 5px; cursor: pointer" @click="editNode(props.item)">
+              <td style="padding-top: 5px; padding-bottom: 5px; cursor: pointer" @click="editParticipante(props.item)">
                 <v-avatar
                   size='30'
                   class="grey lighten-4">
@@ -171,19 +133,20 @@
                       style="width: 50px; height: 50px">
                 </v-avatar>
               </td>
-              <td style="cursor: pointer" @click="editNode(props.item)">{{ props.item.name }}</td>
+              <td style="cursor: pointer" @click="editParticipante(props.item)">{{ props.item.username }}</td>
+              <td style="cursor: pointer" @click="editParticipante(props.item)">{{ props.item.email }}</td>
               <td>
-                <v-tooltip left>
+                <!-- <v-tooltip left>
                 <v-btn slot="activator" small color="white" icon @click="goToChart(props.item.name)">
                   <v-icon style="color: purple !important; font-size: 20px">share</v-icon>
                 </v-btn>   
                 <span>Mostrar en bubbles</span>
-                </v-tooltip>
+                </v-tooltip> -->
                 <v-tooltip left>             
-                <v-btn slot="activator" small color="white" icon @click="openDialog(props.item)">
+                <v-btn v-if="admin" slot="activator" small color="white" icon @click="openDialog(props.item)">
                   <v-icon style="color: grey !important; font-size: 20px">delete_sweep</v-icon>
                 </v-btn>
-                <span>Eliminar nodo</span>
+                <span>Eliminar participante</span>
                 </v-tooltip>
               </td>
             </template>
@@ -196,229 +159,91 @@
       </v-card>        
     </v-flex>      
 
-    <!-- FORMULARIO -->
-    <v-flex d-flex xs12 md4 lg4 style="padding: 5px">
-        <v-card dark class="widget-title scrollform fadeIn" 
-          style="padding: 30px; padding-top: 22px;">
-
-          <v-form v-model="valid" ref="form1" lazy-validation enctype="multipart/form-data">          
-            
-            <v-toolbar-title @click="openDialogAddNodo" class="texto" 
-              style="margin: 0px; margin-bottom: 10px; cursor: pointer">Añadir nodo</v-toolbar-title>
-
-            <!-- Tipo -->
-            <v-select
-              label="Tipo"
-              v-model="tipo"
-              :items="tipos"
-              @change="openDialogAddNodo"
-            ></v-select>
-
-            <!-- Nombre --> 
-            <v-text-field label="Nombre" @click="openDialogAddNodo" v-model="name"></v-text-field>
-
-            <!-- imagen -->
-            <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
-              <!-- <img :src="imageUrl" height="150" v-if="imageUrl" style="max-width: 80%;"/> -->
-              <v-text-field label="Seleccione una imagen"                           
-                prepend-icon='camera_alt'
-                disabled></v-text-field>
-            </v-flex>
-
-            <!-- Información -->
-            <v-text-field label="Información" @click="openDialogAddNodo" v-model="biography" multi-line></v-text-field>        
-
-            <!-- <v-btn
-              @click="submit"
-              :disabled="!valid">
-              Guardar
-            </v-btn>
-            <v-btn @click="clear">Borrar</v-btn> -->
-
-            <v-btn @click="openDialogAddNodo">Añadir</v-btn>
-
-          </v-form>
-
-        </v-card>      
-    </v-flex>  
-
-    <!-- MODAL PARA LA INSERCIÓN -->
-    <v-dialog v-model="dialogAddNodo" max-width="80%">
+    <!-- MODAL PARA LA INSERCIÓN DE CAMPEONATOS -->
+    <v-dialog v-model="dialogAddCampeonato" max-width="80%">
       <v-card dark :class="theme" class="scrollform" v-bind:style="{  'max-height': window_height + 'px' }">
         <v-card-title>
-          <span class="headline">Datos del nodo</span>
+          <span class="headline">Datos del campeonato</span>
         </v-card-title>
         <v-card-text>
-
-        <img :src="imageUrl" v-if="imageUrl" 
-            style="max-width: 50%; max-height: 200px; position: absolute; right: 35px; top: 20px;"/>
             
-        <v-form v-model="valid" ref="form2" lazy-validation>
-
-          <v-layout row wrap align-start>
-
-            <!-- Tipo -->
-            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px">
-              <v-select
-                label="Tipo"
-                v-model="tipo"
-                :items="tipos"
-                :rules="[v => !!v || 'El tipo es requerido']"
-                required          
-              ></v-select>
-            </v-flex>
-
-          </v-layout>             
+        <v-form v-model="valid" ref="form1" lazy-validation>          
             
           <v-layout row wrap align-start>
 
             <!-- Nombre -->
             <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px">
-              <v-text-field label="Nombre" v-model="name" :rules="nameRules" required></v-text-field>              
+              <v-text-field label="Nombre" v-model="name" :rules="nameRules" :disabled="!admin" required></v-text-field>              
             </v-flex>
             
+            <!-- Imagen -->
+            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px">
+              <v-text-field label="Imagen" v-model="image" :rules="imageRules" :disabled="!admin" required></v-text-field>              
+            </v-flex>
+
+          </v-layout> 
+        
+          <v-btn v-if="admin"
+            @click="saveCampeonato"
+            color="light-green darken-4"
+            :disabled="!valid" style="margin-top: 0px">
+            Guardar
+          </v-btn>
+          <v-btn v-if="admin" @click.native="clear2" style="margin-top: 0px">Cancelar</v-btn>   
+
+        </v-form>
+
+        </v-card-text>     
+
+      </v-card>
+    </v-dialog>
+
+    <!-- MODAL PARA LA INSERCIÓN  DE PARTICIPANTES-->
+    <v-dialog v-model="dialogAddParticipante" max-width="80%">
+      <v-card dark :class="theme" class="scrollform" v-bind:style="{  'max-height': window_height + 'px' }">
+        <v-card-title>
+          <span class="headline">Datos del participante</span>
+        </v-card-title>
+        <v-card-text>
+            
+        <v-form v-model="valid" ref="form2" lazy-validation>          
+            
+          <v-layout row wrap align-start>
+
+            <!-- Nombre -->
+            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px">
+              <v-text-field label="Nombre" v-model="username" :rules="nameRules" :disabled="!admin" required></v-text-field>              
+            </v-flex>
+            
+            <!-- Imagen -->
+            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px">
+              <v-text-field label="Imagen" v-model="image" :rules="imageRules" :disabled="!admin" required></v-text-field>              
+            </v-flex>
+
           </v-layout> 
 
           <v-layout row wrap align-start>
 
             <!-- Email -->
             <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px">
-              <v-text-field label="Correo electrónico" v-model="email"></v-text-field> 
+              <v-text-field label="Correo electrónico" v-model="email" :rules="emailRules" :disabled="!admin" required></v-text-field> 
             </v-flex>
 
-            <!-- Imagen -->
-            <v-flex d-flex xs12 sm6 md6 
-              class="text-xs-center text-sm-center text-md-center text-lg-center"
-              style="padding: 20px; padding-top: 0px">              
-              <v-text-field label="Seleccione una imagen" 
-                @click='pickFile' 
-                v-model='imageName' 
-                :rules="imageRules"                            
-                prepend-icon='camera_alt'
-                required></v-text-field>
-              <input
-                id="file"
-                type="file"
-                style="display: none"
-                ref="image"
-                accept="image/*"
-                @change="onFilePicked">
+            <!-- Password -->
+            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px" v-if="admin">
+              <v-text-field label="Contraseña" v-model="password" :rules="passwordRules" :disabled="!admin" required></v-text-field> 
             </v-flex>
 
           </v-layout>      
-
-          <v-layout row wrap align-start>
-            <!-- Teléfono 1 -->
-            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px">
-              <v-text-field label="Teléfono 1" v-model="phone"></v-text-field>     
-            </v-flex>
-            <!-- Teléfono 2 -->
-            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px">
-              <v-text-field label="Teléfono 2" v-model="phone2"></v-text-field>
-            </v-flex>
-          </v-layout>  
-
-          <v-layout row wrap align-start>
-            <!-- Cargo -->
-            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px">
-              <v-text-field label="Cargo" v-model="cargo"></v-text-field> 
-            </v-flex>
-            <!-- Web -->
-            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px">
-              <v-text-field label="Web" v-model="web"></v-text-field>    
-            </v-flex>            
-          </v-layout>
-
-          <v-layout row wrap align-start>
-            <!-- Información -->
-            <v-flex d-flex xs12 sm12 md12 style="padding: 20px; padding-top: 0px">
-              <v-text-field label="Información" v-model="biography" multi-line></v-text-field>              
-            </v-flex>
-          </v-layout>
-            
-          <v-layout row wrap align-start>
-            <!-- Formación -->
-            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px">
-              <v-text-field label="Formación" v-model="formacion" multi-line></v-text-field>      
-            </v-flex>
-            <!-- Experiencia -->
-            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px">
-              <v-text-field label="Experiencia" v-model="experiencia" multi-line></v-text-field>   
-            </v-flex>
-          </v-layout>              
-                        
-          <v-layout row wrap align-start>
-            <!-- Relaciones -->
-            <v-flex d-flex xs12 sm12 md12 style="padding: 20px; padding-top: 0px">
-
-            <v-select
-              label="Otras relaciones"
-              chips
-              tags              
-              dark
-              prepend-icon="timeline"
-              append-icon=""
-              clearable
-              v-model="relaciones">
-              <template slot="selection" slot-scope="data">
-                <v-chip
-                  close
-                  dark
-                  outline color="white"
-                  @input="remove(data.item)"
-                  :selected="data.selected">
-                  <strong>{{ data.item }}</strong>
-                </v-chip>
-              </template>
-            </v-select>
-             
-            </v-flex>
-          </v-layout>
-
-          <v-layout row wrap align-start>
-            <!-- Twitter -->
-            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px">
-              <v-text-field label="Twitter" v-model="twitter"></v-text-field>       
-            </v-flex>
-            <!-- Linkedin -->
-            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px">
-              <v-text-field label="Linkedin" v-model="linkedin"></v-text-field>    
-            </v-flex>
-          </v-layout>   
-
-          <v-layout row wrap align-start>
-            <!-- Youtube -->
-            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px">
-              <v-text-field label="Youtube" v-model="youtube"></v-text-field>       
-            </v-flex>
-            <!-- Instagram -->
-            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px">
-              <v-text-field label="Instagram" v-model="instagram"></v-text-field>    
-            </v-flex>
-          </v-layout> 
-
-          <v-layout row wrap align-start>
-            <!-- Facebook -->
-            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px">
-              <v-text-field label="Facebook" v-model="facebook"></v-text-field>       
-            </v-flex>     
-            <!-- Remarcar nodo -->
-            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px" v-show="tipo === 'Institución u organismo'">                
-              <v-select
-                label="Remarcar nodo"
-                v-model="remarcar"
-                :items="remarcarItems"
-                required          
-              ></v-select>                  
-            </v-flex>                   
-          </v-layout>           
-
-          <v-btn
-            @click="submit"
-            :disabled="!valid" style="margin-top: 30px">
+        
+          <v-btn v-if="admin"
+            @click="saveParticipante"
+            color="light-green darken-4"
+            :disabled="!valid" style="margin-top: 0px">
             Guardar
           </v-btn>
-          <v-btn @click.native="clear" style="margin-top: 30px">Cancelar</v-btn>          
+          <v-btn v-if="admin" @click.native="clear" style="margin-top: 0px">Cancelar</v-btn>   
+
         </v-form>
 
         </v-card-text>     
@@ -445,7 +270,7 @@
         right
         small
         style="background-color: rgba(255, 255, 255, 0.2)">
-        <v-icon>share</v-icon>
+        <v-icon>device_hub</v-icon>
       </v-btn>
     </v-fab-transition>
 
@@ -454,12 +279,25 @@
   <!-- CONFIRMACIÓN DE BORRADO -->
   <v-dialog v-model="dialog" max-width="50%">
     <v-card>
-      <v-card-title class="headline">¿Esta seguro de que desea borrar el contacto seleccionado?</v-card-title>
+      <v-card-title class="headline">¿Esta seguro de que desea borrar el participante seleccionado?</v-card-title>
       <v-card-text>Esta operación no podrá ser deshecha</v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn flat="flat" @click="cancelDeleteNode()">Cancelar</v-btn>
-        <v-btn color="red" flat="flat" @click="deleteNode()">Borrar</v-btn>
+        <v-btn color="red" flat="flat" @click="deleteParticipante()">Borrar</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>  
+
+  <!-- CONFIRMACIÓN DE BORRADO -->
+  <v-dialog v-model="dialog2" max-width="50%">
+    <v-card>
+      <v-card-title class="headline">¿Esta seguro de que desea borrar el campeonato seleccionado?</v-card-title>
+      <v-card-text>Esta operación no podrá ser deshecha</v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn flat="flat" @click="cancelDeleteNode()">Cancelar</v-btn>
+        <v-btn color="red" flat="flat" @click="deleteCampeonato()">Borrar</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>  
@@ -470,18 +308,29 @@
 
 <script>
   import axios from 'axios'
+  import sha256 from 'sha256'
   export default {
     data: () => ({
 
+      admin: null,
       window_height: 700,
       info: 'Datos guardados',
       infoOperation: false,
       timeout: 3000,
       valid: false,
       name: '',
+      email: '',
+      username: '',
+      password: '',
       nameRules: [
         v => !!v || 'El nombre es obligatorio'
       ],
+      passwordRules: [
+        v => !!v || 'La contraseña es obligatoria'
+      ],  
+      emailRules: [
+        v => !!v || 'El email es obligatorio'
+      ],           
       tipo: null,
       tipos: [
         'Persona',
@@ -491,25 +340,7 @@
         v => !!v || 'La imagen es obligatoria'
       ],
  
-      imageName: '',
-      imageUrl: '',
-      imageFile: '',
-      biography: '',
-      cargo: '',
-      formacion: '',
-      experiencia: '',
-      relaciones: [],
-      phone: '',
-      phone2: '',
-      email: '',
-      twitter: '',
-      linkedin: '',
-      instagram: '',
-      youtube: '',
-      facebook: '',
-      web: '',
-      remarcar: 'No',
-      remarcarItems: ['No', 'Si'],
+      image: '',
 
       form_height: 700,
 
@@ -523,31 +354,42 @@
         { text: 'Nombre', align: 'left', sortable: true, value: 'name' },
         { text: '', align: 'center', sortable: false }
       ],
+      headers2: [
+        { text: '', align: 'left', sortable: false, value: 'image' },
+        { text: 'Nombre', align: 'left', sortable: true, value: 'username' },
+        { text: 'Email', align: 'left', sortable: true, value: 'email' },
+        { text: '', align: 'center', sortable: false }
+      ],      
       rows_per_page: [10,15,25,50,{"text":"Todos","value":-1}],
-      nodos: [],
+      campeonatos: [],
+      participantes: [],
       dialog: false,
-      node_to_delete: null,
+      dialog2: false,
+      participante_to_delete: null,
+      campeonato_to_delete: null,
 
       num_instituciones: 0,
       num_personas: 0,
       num_conexiones: 0,
 
-      dialogAddNodo: false,
+      dialogAddCampeonato: false,
+      dialogAddParticipante: false,
 
-      //EDICIÓN DE NODOS
-      current_id_node_to_update: null,
+      //EDICIÓN
+      current_id_participante_to_update: null,
+      current_id_campeonato_to_update: null,
       
-      token: null
+      token: null,
+      teams: [],
+      results: []
       
     }),
-
-    created () {  
-  
-    },
 
     mounted() {
 
       this.token = this.$localStorage.get('billarToken') 
+
+      this.admin = this.$store.state.admin
 
       //Ajuste al height del formularaio
       this.form_height = window.innerHeight - 230; 
@@ -555,39 +397,20 @@
       //Ajuste al height de la pantalla actual
       this.window_height = window.innerHeight - 150;        
 
-      this.loadNodesForTable()
-
-      let vm = this;
-      axios.get(this.$store.state.URL_NODE_SERVER+'/loadLinksForTable',
-        { headers : {'Authorization': 'Bearer ' + vm.token }})
-        .then(function (response) {
-          vm.num_conexiones = response.data.length
-        })
-        .catch(function (error) {
-            vm.$localStorage.remove('billarToken')
-            vm.$localStorage.remove('billarUser')
-            vm.$localStorage.remove('billarImg')            
-            vm.$store.commit('loginKO')                
-            vm.$router.push('/') 
-        });       
+      this.getCampeonatos()    
+      this.getParticipantes()    
 
     },
 
     computed: {
-      filterInstituciones() {        
-        return this.nodos.filter((i) => {
-          if (i.type === 'movie'){
-            this.num_instituciones++
-            return true
-          }else return false          
+      filterCampeonatos() {        
+        return this.campeonatos.filter((i) => {
+          return true       
         })
       },
-      filterPersonas() {        
-        return this.nodos.filter((i) => {
-          if (i.type === 'actor'){
-            this.num_personas++
-            return true
-          }else return false          
+      filterParticipantes() {        
+        return this.participantes.filter((i) => {
+          return true       
         })
       },
       theme(){
@@ -602,303 +425,165 @@
         this.relaciones = [...this.relaciones]
       },      
 
-      editNode(node){
-        this.dialogAddNodo = true
-        this.current_id_node_to_update = node._id
-
-        if (node.type === 'actor'){
-            this.tipo = this.tipos[0]
-        }else this.tipo = this.tipos[1]
-
-        let remarcar = 'No'
-        if (node.remarcar) remarcar = 'Si'
-        
-        this.name = node.name
-        this.imageName = node.image
-        this.imageUrl = node.image
-        this.imageFile = ''
-        this.biography = node.biography
-        this.cargo = node.cargo
-        this.formacion = node.formacion
-        this.experiencia = node.experiencia
-        this.relaciones = node.relaciones
-        this.phone = node.phone
-        this.phone2 = node.phone2
-        this.email = node.email
-        this.twitter = node.twitter
-        this.linkedin = node.linkedin
-        this.instagram = node.instagram
-        this.facebook = node.facebook
-        this.youtube = node.youtube
-        this.web = node.web
-        this.remarcar = remarcar
+      editParticipante(participante){
+        this.dialogAddParticipante = true
+        this.current_id_participante_to_update = participante._id
+        this.username = participante.username
+        this.email = participante.email
+        this.image = participante.image
+        this.password = ''
       },
 
-      openDialogAddNodo(){        
-        this.name = ''
-        this.imageName = ''
-        this.imageUrl = null
-        this.imageFile = ''
-        this.biography = null
-        this.cargo = null
-        this.formacion = null
-        this.experiencia = null
-        this.relaciones = []
-        this.phone = null
-        this.phone2 = null
-        this.email = null
-        this.twitter = null
-        this.linkedin = null
-        this.instagram = null
-        this.facebook = null
-        this.youtube = null
-        this.web = null
-        this.remarcar = 'No'
-        this.dialogAddNodo = true
-        this.current_id_node_to_update = null
+      editCampeonato(campeonato){
+        this.dialogAddCampeonato = true
+        this.current_id_campeonato_to_update = campeonato._id
+        this.name = campeonato.name
+        this.image = campeonato.image
+        this.teams = campeonato.teams
+        this.results = campeonato.results
+      },      
+
+      openDialogAddParticipante(){        
+        this.username = ''
+        this.password = ''
+        this.image = '/static/img/'
+        this.dialogAddParticipante = true
+        this.current_id_participante_to_update = null
       },
 
-      openDialog(node){
+      openDialog(participante){
         this.dialog = true
-        this.node_to_delete = node
-      },
-      
-      loadNodesForTable (){
-        let vm = this;
-        axios.get(this.$store.state.URL_NODE_SERVER+'/loadNodesForTable',
-          { headers : {'Authorization': 'Bearer ' + vm.token }})
-          .then(function (response) {
-            //console.log(response.data);
-            vm.nodos = response.data
-            if (vm.$store.state.edit_node) {
-              let _id = vm.$store.state.edit_node
-              vm.$store.commit('clearEditNode') 
-              for (let index = 0; index < vm.nodos.length; index++) {
-                const n = vm.nodos[index];
-                if (n._id === _id) {
-                  vm.editNode(n)
-                  break;
-                }
-              }
-            } 
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        this.participante_to_delete = participante
       },
 
-      submit () {
+      openDialogAddCampeonato(){        
+        this.name = ''
+        this.image = '/static/img/bolas/'
+        this.dialogAddCampeonato = true
+        this.current_id_campeonato_to_update = null
+      },      
+      
+      openDialog2(campeonato){
+        this.dialog2 = true
+        this.campeonato_to_delete = campeonato
+      },
+
+      getCampeonatos (){
+        let vm = this;
+        /* Obtención del campeonato activo o seleccionado */
+        axios.get(vm.$store.state.URL_NODE_SERVER+'/getCampeonatos',
+            { headers : {'Authorization': 'Bearer ' + vm.token }})
+            .then(function (response) {
+                //console.log(response.data);
+                vm.campeonatos = response.data;
+            })
+            .catch(function (error) {
+                vm.$localStorage.remove('billarToken')
+                vm.$localStorage.remove('billarUser')
+                vm.$localStorage.remove('billarImg')                                            
+                vm.$router.push('/') 
+            }); 
+      },
+
+      getParticipantes (){
+        let vm = this;
+        /* Obtención del campeonato activo o seleccionado */
+        axios.get(vm.$store.state.URL_NODE_SERVER+'/getParticipantes',
+            { headers : {'Authorization': 'Bearer ' + vm.token }})
+            .then(function (response) {
+                //console.log(response.data);
+                vm.participantes = response.data;
+            })
+            .catch(function (error) {
+                vm.$localStorage.remove('billarToken')
+                vm.$localStorage.remove('billarUser')
+                vm.$localStorage.remove('billarImg')                                            
+                vm.$router.push('/') 
+            }); 
+      },
+
+      saveParticipante () {
         if (this.$refs.form2.validate()) {          
 
-          let tipo = 'movie';
-          if (this.tipo === 'Persona') tipo = 'actor';
+          let vm = this
+          let password = sha256(this.password)
+          let participante = {
+            username: vm.username,
+            image: vm.image,
+            password: password,
+            email: vm.email
+          }
 
           //=> Si es un alta entramos por aquí
-          if (!this.current_id_node_to_update) {
+          if (!vm.current_id_participante_to_update) {
 
-            //Primero subimos la imagen y despues insertamos el nodo completo
-            var data = new FormData();
-            data.append('foo', 'bar');
-            data.append('file', this.imageFile);
-            var config = {
-              onUploadProgress: function(progressEvent) {
-                var percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
-              }
-            };
-            let vm = this;          
-            axios.post(vm.$store.state.URL_NODE_SERVER+`/uploadImage`, data, config).then(function (res) {
-              
-              let remarcar = false
-              if (vm.remarcar === 'Si') remarcar = true  
-
-              let nodo = {
-                ref: '',
-                name: vm.name,
-                type: tipo,
-                image: res.data.image, 
-                imdb_id: "tt0086250",
-                //Campos para una película
-                released: "1983/12/09",
-                runtime: 170,
-                director: "",
-                plot: '',
-                language: "Spanish",
-                country: "ES",
-                awards: "",
-                trailers:"",
-                //Campos para un actor
-                biography: vm.biography,
-                cargo: vm.cargo,
-                formacion: vm.formacion,
-                experiencia: vm.experiencia,
-                relaciones: vm.relaciones,
-                phone: vm.phone,
-                phone2: vm.phone2,
-                email: vm.email,
-                twitter: vm.twitter,
-                linkedin: vm.linkedin,                
-                instagram: vm.instagram, 
-                facebook: vm.facebook, 
-                youtube: vm.youtube, 
-                web: vm.web,               
-                remarcar: remarcar,               
-                birthday: ''
-              }
-
-              vm.$refs.form1.reset()
-              vm.$refs.form2.reset()  
-
-              axios.post(vm.$store.state.URL_NODE_SERVER+`/addNodes`, nodo,
+              axios.post(vm.$store.state.URL_NODE_SERVER+`/addParticipante`, participante,
                 { headers : {'Authorization': 'Bearer ' + vm.token }})
                 .then(response => {
-                  //console.log(response.data);       
-                  vm.nodos.push(response.data); 
-                  vm.imageName = ''
-                  vm.imageUrl = ''
-                  vm.imageFile = ''
-                  vm.dialogAddNodo = false
-                  vm.info = 'Datos guardados'
-                  vm.infoOperation = true
+                    //console.log(response.data); 
+                    vm.getParticipantes()
+                    vm.dialogAddParticipante = false                                    
                 }).catch(e => {console.log(e)}) 
-
-            }).catch(function (err) {
-              console.log(err.message);
-            });
         
           //=> Si es una modificación entramos por aquí        
           }else {
 
-            //=> SIN MODIFICACIÓN DE IMAGEN
-            if (!this.imageFile){
-
-              let remarcar = false
-              if (this.remarcar === 'Si') remarcar = true  
-
-              let nodo = {
-                _id: this.current_id_node_to_update,
-                ref: '',
-                name: this.name,
-                type: tipo,
-                imdb_id: "tt0086250",
-                //Campos para una película
-                released: "1983/12/09",
-                runtime: 170,
-                director: "",
-                plot: '',
-                language: "Spanish",
-                country: "ES",
-                awards: "",
-                trailers:"",
-                //Campos para un actor
-                biography: this.biography,
-                cargo: this.cargo,
-                formacion: this.formacion,
-                experiencia: this.experiencia,
-                relaciones: this.relaciones,
-                phone: this.phone,
-                phone2: this.phone2,
-                email: this.email,
-                twitter: this.twitter,
-                linkedin: this.linkedin,                
-                instagram: this.instagram, 
-                facebook: this.facebook, 
-                youtube: this.youtube, 
-                web: this.web,
-                remarcar: remarcar
-              }
-
-              this.$refs.form1.reset()
-              this.$refs.form2.reset()  
-
-              let vm = this
-
-              axios.post(vm.$store.state.URL_NODE_SERVER+`/updateNode`, nodo,
+              participante._id = vm.current_id_participante_to_update
+              axios.post(vm.$store.state.URL_NODE_SERVER+`/saveParticipante`, participante,
                 { headers : {'Authorization': 'Bearer ' + vm.token }})
                 .then(response => {
-                  //console.log(response.data); 
-                  vm.loadNodesForTable()
-                  vm.imageName = ''
-                  vm.imageUrl = ''
-                  vm.imageFile = ''
-                  vm.dialogAddNodo = false
-                  vm.info = 'Datos actualizados'
-                  vm.infoOperation = true
+                    //console.log(response.data); 
+                    vm.getParticipantes()
+                    vm.dialogAddParticipante = false                                    
                 }).catch(e => {console.log(e)}) 
 
-            //=> CON MODIFICACIÓN DE IMAGEN
-            }else {
+          }
+        
+        }
 
-            //Primero subimos la imagen y despues insertamos el nodo completo
-            var data = new FormData();
-            data.append('foo', 'bar');
-            data.append('file', this.imageFile);
-            var config = {
-              onUploadProgress: function(progressEvent) {
-                var percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
+      },
+
+      saveCampeonato () {
+        if (this.$refs.form1.validate()) {          
+
+          let vm = this
+
+          //=> Si es un alta entramos por aquí
+          if (!this.current_id_campeonato_to_update) {
+
+              let campeonato = {
+                name: vm.name,
+                image: vm.image,
+                teams : [],
+                results : []                
               }
-            };
-            let vm = this;
-            let remarcar = false
-            if (vm.remarcar === 'Si') remarcar = true            
-            axios.post(vm.$store.state.URL_NODE_SERVER+`/uploadImage`, data, config).then(function (res) {
-              
-                let nodo = {
-                  _id: vm.current_id_node_to_update,
-                  ref: '',
-                  name: vm.name,
-                  type: tipo,
-                  image: res.data.image, 
-                  imdb_id: "tt0086250",
-                  //Campos para una película
-                  released: "1983/12/09",
-                  runtime: 170,
-                  director: "",
-                  plot: '',
-                  language: "Spanish",
-                  country: "ES",
-                  awards: "",
-                  trailers:"",
-                  //Campos para un actor
-                  biography: vm.biography,
-                  cargo: vm.cargo,
-                  formacion: vm.formacion,
-                  experiencia: vm.experiencia,
-                  relaciones: vm.relaciones,
-                  phone: vm.phone,
-                  phone2: vm.phone2,
-                  email: vm.email,
-                  twitter: vm.twitter,
-                  linkedin: vm.linkedin,                
-                  instagram: vm.instagram, 
-                  facebook: vm.facebook, 
-                  youtube: vm.youtube, 
-                  web: vm.web,                  
-                  remarcar: remarcar                  
-                }
 
-                vm.$refs.form1.reset()
-                vm.$refs.form2.reset()  
+              axios.post(vm.$store.state.URL_NODE_SERVER+`/addCampeonato`, campeonato,
+                { headers : {'Authorization': 'Bearer ' + vm.token }})
+                .then(response => {
+                    //console.log(response.data); 
+                    vm.getCampeonatos() 
+                    vm.dialogAddCampeonato = false                                    
+                }).catch(e => {console.log(e)}) 
+        
+          //=> Si es una modificación entramos por aquí        
+          }else {
 
-                axios.post(vm.$store.state.URL_NODE_SERVER+`/updateNode`, nodo,
+              let campeonato = {
+                _id: vm.current_id_campeonato_to_update,
+                name: vm.name,
+                image: vm.image,
+                teams : vm.teams,
+                results : vm.results                
+              }
+
+              axios.post(vm.$store.state.URL_NODE_SERVER+`/saveCampeonato`, campeonato,
                   { headers : {'Authorization': 'Bearer ' + vm.token }})
                   .then(response => {
-                    //console.log(response.data); 
-                    vm.loadNodesForTable()
-                    vm.imageName = ''
-                    vm.imageUrl = ''
-                    vm.imageFile = ''
-                    vm.dialogAddNodo = false
-                    vm.info = 'Datos actualizados'
-                    vm.infoOperation = true
-                  }).catch(e => {console.log(e)}) 
-
-              }).catch(function (err) {
-                console.log(err.message);
-              });
-        
-
-            }
-
+                      //console.log(response.data);
+                      vm.getCampeonatos()   
+                      vm.dialogAddCampeonato = false                                     
+                  }).catch(e => {console.log(e)})
 
           }
         
@@ -906,55 +591,49 @@
 
       },
 
-      clear () {        
-        this.$refs.form1.reset()
-        this.$refs.form2.reset()
-        this.imageUrl = null
-        this.dialogAddNodo = false
+      clear () {    
+        this.dialogAddParticipante = false       
       },
 
-      pickFile () {
-        this.$refs.image.click ()
-      },
-		
-      onFilePicked (e) {
-        const files = e.target.files
-        if(files[0] !== undefined) {
-          this.imageName = files[0].name
-          if(this.imageName.lastIndexOf('.') <= 0) {
-            return
-          }
-          const fr = new FileReader ()
-          fr.readAsDataURL(files[0])
-          fr.addEventListener('load', () => {
-            this.imageUrl = fr.result
-            this.imageFile = files[0] // this is an image file that can be sent to server...
-          })
-        } else {
-          this.imageName = ''
-          this.imageFile = ''
-          this.imageUrl = ''
-        }
+      clear2 () {    
+        this.dialogAddCampeonato = false       
       },
 
-      deleteNode (){
+      deleteParticipante (){
         let vm = this
         this.dialog = false;
-        axios.post(this.$store.state.URL_NODE_SERVER+`/deleteNode`, { body: this.node_to_delete },
+        axios.post(vm.$store.state.URL_NODE_SERVER+`/deleteParticipante`, vm.participante_to_delete,
           { headers : {'Authorization': 'Bearer ' + vm.token }})
           .then(response => {
             //console.log(response.data)
-            vm.node_to_delete = null
-            vm.loadNodesForTable()
+            vm.participante_to_delete = null
+            vm.getParticipantes()
           }).catch(e => {
             console.log(e)
-            vm.node_to_delete = null
+            vm.participante_to_delete = null
+          }) 
+      },
+
+      deleteCampeonato (){
+        let vm = this
+        this.dialog2 = false;
+        axios.post(vm.$store.state.URL_NODE_SERVER+`/deleteCampeonato`, vm.campeonato_to_delete,
+          { headers : {'Authorization': 'Bearer ' + vm.token }})
+          .then(response => {
+            //console.log(response.data)
+            vm.campeonato_to_delete = null
+            vm.getCampeonatos()
+          }).catch(e => {
+            console.log(e)
+            vm.campeonato_to_delete = null
           }) 
       },
 
       cancelDeleteNode (){
-        this.node_to_delete = null;
+        this.participante_to_delete = null;
+        this.campeonato_to_delete = null;
         this.dialog = false;
+        this.dialog2 = false;
       },
 
       goToChart (name){

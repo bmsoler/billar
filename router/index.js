@@ -25,6 +25,7 @@ export function createRouter () {
         route('/', 'Login'),
         route('/Billar', 'Billar'),
         route('/Datos', 'Datos'),        
+        route('/Reglamento', 'Reglamento'),        
         route('/Login', 'Login'),
         // Global redirect for 404
         { path: '*', redirect: '/' }
