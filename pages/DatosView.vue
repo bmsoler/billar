@@ -1,7 +1,7 @@
 <template>
 
-<div>
-
+<div> 
+  
   <v-layout row wrap align-start mx-auto> 
 
     <!-- LISTADO DE CAMPEONATOS -->
@@ -231,7 +231,7 @@
 
             <!-- Password -->
             <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px" v-if="admin || update_password">
-              <v-text-field label="Contraseña" type="password" v-model="password" :rules="passwordRules" :disabled="!update_password" required></v-text-field> 
+              <v-text-field label="Contraseña" type="password" v-model="password" :rules="passwordRules" :disabled="!admin && !update_password" required></v-text-field> 
             </v-flex>
 
           </v-layout>      

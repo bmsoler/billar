@@ -483,6 +483,7 @@ export default {
       transition: 0.2s padding cubic-bezier(0.4, 0, 0.2, 1) !important;
       will-change: padding !important;
       padding: 0px !important;
+      padding-bottom: 150px !important;
   }
   .container {
       -webkit-box-flex: 1 !important;

@@ -4,6 +4,7 @@ var express = require('express'),
   mongoose = require('mongoose'),   
   User = mongoose.model('User'),
   Campeonato = mongoose.model('Campeonato'),
+  Calendario = mongoose.model('Calendario'),
   config = require('../../config/config'),
   path = require('path'),
   http = require('http'),
@@ -148,6 +149,64 @@ router.post('/deleteParticipante', middleware.ensureAuthenticated, function (req
       res.status(500).send("(deleteParticipante) Problem with Mongodb " + err);
     } else {      
       res.status(200).send({ remove: 'OK' });
+    }
+  });
+});
+
+/*
+* GET / Obtenemos el calendario
+*/
+router.get('/getCalendario', middleware.ensureAuthenticated, function (req, res, next) {
+  Calendario.find({}, function (err, calendario) {
+    if (!err) {
+      res.status(200).send(calendario);
+    } else {
+      console.log(err);
+      res.status(500).send('Error en getCalendario');
+    }
+  });
+});
+
+/*
+  AÑADIR CALENDARIO
+*/
+router.post('/addCalendario', middleware.ensureAuthenticated, function (req, res, next) {
+  let calendario = req.body;
+  new Calendario(calendario).save(function (err, newCalendario) {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(newCalendario);
+    }
+  });
+});
+
+/*
+* Borrado de calendarios
+*/
+router.post('/deleteCalendario', middleware.ensureAuthenticated, function (req, res, next) {
+  let ev = req.body;
+  Calendario.remove({ _id: ev._id }, function (err) {
+    if (err) {
+      res.status(500).send("(deleteCalendario) Problem with Mongodb " + err);
+    } else {      
+      res.status(200).send({ remove: 'OK' });
+    }
+  });
+});
+
+/*
+  ACTUALIZAR CALENDARIO
+*/
+router.post('/saveCalendario', middleware.ensureAuthenticated, function (req, res, next) {
+  let calendario = req.body;
+  Calendario.findByIdAndUpdate(calendario._id, calendario, function (err, result) {
+    if (err) {
+      console.log("(saveCalendario) Problem with Mongodb " + err + '\n');
+      res.status(500).send("(saveCalendario) Problem with Mongodb " + err);
+    } else {        
+      res.status(200).send({ result: "Calendario actualizado" });
     }
   });
 });
