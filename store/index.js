@@ -14,7 +14,7 @@ export function createStore () {
       //URL_NODE_SERVER: 'https://dev.aunnait.es:3020'    //  PRODUCCIÓN
     },
 
-    actions: {
+    actions: { 
   
     },
 

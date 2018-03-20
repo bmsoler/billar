@@ -7,6 +7,43 @@
             <div id="customHandlers" style="display: inline-block;"></div>           
         </div>
 
+
+
+        <!-- Fechas y calendario -->
+        <v-flex d-flex xs12 md12 lg12 style="margin-top:20px; margin-bottom: 50px; padding: 5px; min-width: 50%">
+            <v-card class="widget-title fadeIn" >
+                <v-toolbar dark style="height: 100px; background: transparent; z-index: 1000">
+                <v-toolbar-title class="texto">
+                    Fechas y calendario
+                </v-toolbar-title>         
+                </v-toolbar>
+                <div style="position: absolute;
+                right: 10px;
+                left: 10px;
+                top: 60px;">
+
+                <v-list>
+                <v-list-tile avatar v-for="item in items" :key="item.title">
+                    <v-list-tile-action>
+                    <v-icon v-if="item.icon" color="grey">event</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                    <v-list-tile-sub-title>{{ item.subtitle }}</v-list-tile-sub-title>
+                    </v-list-tile-content>
+                    <v-list-tile-avatar>
+                    <img :src="item.avatar">
+                    </v-list-tile-avatar>
+                    <v-list-tile-avatar>
+                    <img :src="item.avatar2">
+                    </v-list-tile-avatar>                    
+                </v-list-tile>
+                </v-list>
+                
+                </div>
+            </v-card>        
+        </v-flex>  
+
       </v-layout>
     </v-slide-y-transition>
     
@@ -21,7 +58,13 @@ export default {
     data () {
       return {                         
           token: null,
-          admin: null
+          admin: null,
+
+            items: [
+            { icon: true, title: 'Blas vs Javi', subtitle: '25/02/2018 12:00h', avatar: '/static/img/blas.png', avatar2: '/static/img/javi.png' },
+            { icon: true, title: 'Jorge vs Pablo', subtitle: '25/02/2018 12:00h', avatar: '/static/img/jorge.png', avatar2: '/static/img/pablo.png' }
+            ]
+
       }
     },
 
@@ -72,7 +115,7 @@ export default {
                         container.append("No team")
                         return;
                     case "empty-tbd":
-                        container.append("Upcoming")
+                        container.append("Pendiente")
                         return;            
                     case "entry-no-score":
                     case "entry-default-win":
@@ -132,33 +175,7 @@ export default {
                     vm.$router.push('/') 
                 }); 
 
-            
-            //this.addCampeonato()
-
-        }, // ### init
-
-        addCampeonato() {
-
-            let vm = this
-
-            let campeonato = {
-                name: 'I Campeonato de billar',
-                teams : [
-                    [{name: "Jaime", image: 'jaime'}, {name: "Ángel", image: 'angel'}],
-                    [{name: "Pablo", image: 'pablo'}, {name: "Jorge", image: 'jorge'}],
-                    [{name: "Jesús", image: 'jesus'}, {name: "Blas", image: 'blas'}],
-                    [null, null],
-                ],
-                results : []
-            }
-
-            axios.post(this.$store.state.URL_NODE_SERVER+`/addCampeonato`, campeonato,
-                { headers : {'Authorization': 'Bearer ' + vm.token }})
-                .then(response => {
-                    console.log(response.data);                                       
-                }).catch(e => {console.log(e)}) 
-
-        }
+        } // ### init
 
     },
 

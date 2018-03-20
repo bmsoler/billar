@@ -17,6 +17,33 @@
           left: 10px;
           top: 60px;">
 
+          <v-card>
+            <v-card-media src="/static/img/header.jpg" height="200px">
+            </v-card-media>
+            <v-card-title primary-title>
+              <div>
+                <h3 class="headline mb-0">Billar Bola 8</h3>
+                <div>
+                  
+                  <p style="padding: 30px; text-align: justify">                    
+                    Bola-8 es un juego de bola cantada jugado con una bola blanca y quince bolas objetivo numeradas del 1 al 15. <br><br>Cada jugador o equipo tiene un grupo de 7 bolas: las lisas (de un solo color, numeradas del 1 al 7), o las rayadas numeradas del 9 al 15. La bola-8 es la bola que gana la partida. El objetivo del juego es que usted emboque todo su grupo de bolas, y entonces emboque la bola-8. El enfrentamiento lo juegan dos jugadores o dos equipos.
+                 
+                    <br><br>Las bolas se colocan de la siguiente manera:<br><br>
+
+                    En un triángulo con la bola ápice en el punto de pie;
+                    Las hileras detrás del ápice quedan paralelas a la línea de pie;
+                    La bola-8 está en el medio de la hilera de tres bolas;
+                    El resto de las bolas se colocan al azar, excepto que la bola en cada esquina de atrás tiene que ser de distinto grupo que la de la otra esquina de atrás. La orientación izquierda/derecha de los grupos de estas bolas no importa. (Ver Decisiones Aplicadas)                    
+                  </p>
+                   
+                </div>
+              </div>
+            </v-card-title>
+            <v-card-actions>
+              <!-- <v-btn flat color="orange">Share</v-btn>
+              <v-btn flat color="orange">Explore</v-btn> -->
+            </v-card-actions>
+          </v-card>
 
         </div>
       </v-card>        

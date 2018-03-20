@@ -289,6 +289,7 @@ export default {
             this.$localStorage.set('billarUser', response.data.user.username)
             this.$localStorage.set('billarImg', response.data.user.image)
             this.$localStorage.set('billarAdmin', response.data.user.admin)
+            this.$localStorage.set('billarUserID', response.data.user._id)
             this.$store.commit('loginOK')   
             this.login = !this.login  
             if (response.data.user.admin) {
@@ -314,6 +315,7 @@ export default {
       this.$localStorage.remove('billarUser')
       this.$localStorage.remove('billarImg')
       this.$localStorage.remove('billarAdmin')
+      this.$localStorage.remove('billarUserID')
       this.$store.commit('loginKO')
       this.login = !this.login  
       this.$router.push('/')

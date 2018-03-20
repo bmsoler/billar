@@ -230,8 +230,8 @@
             </v-flex>
 
             <!-- Password -->
-            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px" v-if="admin">
-              <v-text-field label="Contraseña" v-model="password" :rules="passwordRules" :disabled="!admin" required></v-text-field> 
+            <v-flex d-flex xs12 sm6 md6 style="padding: 20px; padding-top: 0px" v-if="admin || update_password">
+              <v-text-field label="Contraseña" type="password" v-model="password" :rules="passwordRules" :disabled="!update_password" required></v-text-field> 
             </v-flex>
 
           </v-layout>      
@@ -313,6 +313,7 @@
     data: () => ({
 
       admin: null,
+      update_password: false,
       window_height: 700,
       info: 'Datos guardados',
       infoOperation: false,
@@ -380,6 +381,7 @@
       current_id_campeonato_to_update: null,
       
       token: null,
+      userID: null,
       teams: [],
       results: []
       
@@ -388,6 +390,7 @@
     mounted() {
 
       this.token = this.$localStorage.get('billarToken') 
+      this.userID = this.$localStorage.get('billarUserID')
 
       this.admin = this.$store.state.admin
 
@@ -432,6 +435,9 @@
         this.email = participante.email
         this.image = participante.image
         this.password = ''
+        if (this.userID === participante._id) this.update_password = true
+        else this.update_password = false
+        
       },
 
       editCampeonato(campeonato){
