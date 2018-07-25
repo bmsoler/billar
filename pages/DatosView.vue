@@ -236,7 +236,7 @@
 
           </v-layout>      
         
-          <v-btn v-if="admin"
+          <v-btn
             @click="saveParticipante"
             color="light-green darken-4"
             :disabled="!valid" style="margin-top: 0px">
@@ -452,7 +452,7 @@
       openDialogAddParticipante(){        
         this.username = ''
         this.password = ''
-        this.image = '/static/img/'
+        this.image = '/static/img/user.png'
         this.dialogAddParticipante = true
         this.current_id_participante_to_update = null
       },
@@ -464,7 +464,7 @@
 
       openDialogAddCampeonato(){        
         this.name = ''
-        this.image = '/static/img/bolas/'
+        this.image = '/static/img/bolas/1.jpg'
         this.dialogAddCampeonato = true
         this.current_id_campeonato_to_update = null
       },      

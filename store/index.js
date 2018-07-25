@@ -10,14 +10,14 @@ export function createStore () {
       login: true, // true => Activa la página de login, false => Entramos directamente  
       admin: false, // Determina si es administrador o no    
       fondoDialog: 'fondoDialogVerde',      
-      URL_NODE_SERVER: 'http://localhost:3020'            //  DESARROLLO
-      //URL_NODE_SERVER: 'https://dev.aunnait.es:3020'    //  PRODUCCIÓN
+      //URL_NODE_SERVER: 'http://localhost:3020'            //  DESARROLLO
+      URL_NODE_SERVER: 'https://torneos.aunnaitdev.es:3020'        //  PRODUCCIÓN
     },
 
     actions: { 
   
     },
-
+ 
     mutations: {
       loginOK() {
         this.state.login = false

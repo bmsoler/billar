@@ -1,7 +1,5 @@
 <template>
-
 <div>
-
   <v-layout row wrap align-start mx-auto> 
 
     <!-- REGLAMENTO -->
@@ -23,21 +21,18 @@
             <v-card-title primary-title>
 
               <div style="overflow: auto" v-bind:style="{  'height': window_height + 'px' }">
-
-                <h3 class="headline mb-0">Objetivo del juego</h3>                
+              	<h3 class="headline mb-0">Objetivo del juego</h3>                
                 <p style="padding: 30px; padding-bottom: 10px; text-align: justify">                    
                   En Bola 8 es requisito anunciar el tiro (qué bola se desea meter, y dónde), y se juega con una bola blanca y quince de color, numeradas del 1 al 15. Un jugador debe entronerar las bolas del grupo numerado del 1 al 7 (lisas) y el otro lo hará con las del 9 al 15 (rayadas). El jugador que antes entronere todas las bolas de su grupo, y tras esto la negra, gana el juego.
                 </p>                   
               
                 <h3 class="headline mb-0">Tiro anunciado</h3>                
                 <p style="padding: 30px; padding-bottom: 10px; text-align: justify">                    
-                  En un tiro anunciado, para entronerar legalmente una bola de color, el jugador debe indicar señalando físicamente o de forma verbal antes de cada tiro, la bola que pretende entronerar y la tronera donde dirigirá la bola. (Al anunciar el tiro nunca será necesario indicar detalles como el número de bandas, carambola, antes banda, etc.) No designar la tronera o no entronerar la bola donde se ha indicado es pérdida de turno pero no es falta, las bolas obvias no tienen porque ser anunciadas, las combinaciones y tiros por banda no son considerados obvios.    
+                  En un tiro anunciado, para entronerar legalmente una bola de color, el jugador debe indicar señalando físicamente o de forma verbal antes de cada tiro, la bola que pretende entronerar y la tronera donde dirigirá la bola. No designar la tronera o no entronerar la bola donde se ha indicado es pérdida de turno pero no es falta.    
                   <br><br>
                   Si la bola de color es entronerada tal como se anunció, cualquier otra bola o bolas de color entroneradas se consideran legalmente entroneradas.                
                   <br><br>
                   Si la bola de color anunciada no es legalmente entronerada pero como consecuencia del tiro otras de color si lo son, todas estas bolas (de cualquier color), permanecerán entroneradas.
-                  <br><br>
-                  Por razones tácticas un jugador puede escoger entronerar una bola obvia de su grupo y perder el turno, para lo que deberá anunciar a su oponente "seguridad", "no hay", "libre", "nada" o algo similar antes de efectuar el tiro, este tiro de seguridad es un tiro legal. Si no anunciara seguridad antes y embocara una bola obvia se considera tiro anunciado y deberá continuar tirando. Cualquier bola entronerada en un tiro de seguridad, continuará entronerada.
                 </p> 
 
                 <h3 class="headline mb-0">Triángulo</h3>                
@@ -51,8 +46,6 @@
                 <h3 class="headline mb-0">Tiro de apertura</h3>                
                 <p style="padding: 30px; padding-bottom: 10px; text-align: justify">                    
                   El primer tiro de apertura del enfrentamiento se adjudica mediante punteo sobre la banda corta contraria, ambos jugadores lo harán con una bola distinta cada uno de ellos, ganando el derecho de elección de salida el jugador que se acerque más a la banda corta de llegada.
-                  <br><br>
-                  En competiciones individuales el derecho de apertura para los juegos siguientes al primero será decidido por la organización (el ganador, el perdedor o alternativo) comunicado con anterioridad a la competición.
                 </p>  
 
                 <h3 class="headline mb-0">Mesa abierta</h3>                
@@ -80,8 +73,6 @@
                   a) Aceptar la mesa en la posición que esté y tirar.
                   <br><br>
                   b) Volver a colocar las bolas en el triángulo y realizar el tiro de apertura él mismo.
-                  <br><br>
-                  No es obligatorio dirigir la bola blanca en primer lugar contra la bola más adelantada situada en el punto de pie.
                 </p>  
 
                 <h3 class="headline mb-0">Bola blanca entronerada en tiro de apertura legal</h3>                
@@ -89,13 +80,6 @@
                   Si un jugador entronera la bola blanca en un tiro de apertura legal, todas las bolas entroneradas permanecen como tales, excepción hecha de la bola 8 que será repuesta nuevamente en la mesa; ante dicha circunstancia la mesa queda en situación de abierta.
                   <br><br>
                   Como consecuencia del punto anterior, el jugador contrario obtiene bola blanca en mano detrás de la línea de cabeza, quedando impedido de tirar a cualquier bola situada detrás de dicha línea, salvo que dirija la bola blanca hacia algún punto por delante de la línea de cabeza para contactar posteriormente con la bola de color.
-                </p>
-
-                <h3 class="headline mb-0">Ausencia de falta por situación de la bola blanca fuera de la línea de cabeza</h3>                
-                <p style="padding: 30px; padding-bottom: 10px; text-align: justify"> 
-                  Si el jugador en turno coloca la bola blanca delante de la línea de cabeza, el árbitro o el oponente deben requerir al jugador que sitúe la bola blanca detrás de la línea. No existirá falta si el jugador cumple entonces con el requisito, o posteriormente, si tal requisito no se le exigió (la base de la bola blanca determina si ésta se encuentra dentro o fuera de la línea de cabeza).
-                  <br><br>
-                  La base de la bola en relación a la línea de cabeza determina si ésta es o no jugable. Específicamente, la base de la bola debe estar detrás de la línea de cabeza para ser jugable, en caso de duda el jugador deberá consultar con el árbitro.
                 </p>
 
                 <h3 class="headline mb-0">Tiro legal</h3>                
@@ -136,31 +120,16 @@
                   e) Mover o tocar cualquier bola fuera del golpe de ejecución.
                   <br><br>
                   f) Hacer saltar la bola blanca por encima de otra golpeándola con el taco por debajo de su centro, (no se comete falta si accidentalmente y como consecuencia de una "pifia" se provoca que la bola blanca se eleve sobre la superficie de la mesa; de igual forma se considera legal un salto de bola blanca cuando la ejecución del golpe se realiza levantando la culata del taco y golpeando a la bola por encima de su centro).
-                  <br><br>
-                  g) Si en competiciones (ligas o torneos), el componente de un equipo aconseja a otro de su mismo equipo en la consecución de alguna jugada.
-                  <br><br>
-                  h) Hacer saltar fuera del billar cualquier bola a excepción de la negra, que será pérdida de la partida.
-                  <br><br>
-                  f) Será considerada como falta del jugador que durante el transcurso de la partida suene su móvil. Si el jugador está en juego perderá el turno. Si el turno es del jugador contrario y ya ha efectuado el tiro, el siguiente lo hara con bola en mano. Si el tiro no ha sido realizado jugará con bola en mano.
-                </p>
-
-                <h3 class="headline mb-0">Penalización por falta</h3>                
-                <p style="padding: 30px; padding-bottom: 10px; text-align: justify">            
-                  Cuando un jugador comete falta el adversario obtiene bola en mano. Esto significa que el jugador podrá situar la bola blanca en cualquier parte de la mesa (no siendo obligada su colocación detrás de la línea de cabeza salvo en el tiro de apertura).
-                  <br><br>
-                  Con la condición de bola blanca en mano, el jugador puede situar la bola sobre la mesa con su mano (más de una vez si es necesario).
-                  <br><br>
-                  Una vez colocada la bola, la flecha y la puntera del taco (se exceptúa la suela), pueden ser también utilizadas para situar la bola blanca antes de tirar.
                 </p>
 
                 <h3 class="headline mb-0">Combinaciones</h3>                
                 <p style="padding: 30px; padding-bottom: 10px; text-align: justify">
-                  Las combinaciones están permitidas, pero la bola 8 o las bolas del grupo contrario no pueden ser usadas como primera bola en la combinación, excepto cuando la mesa esté abierta.
+                  Las combinaciones están permitidas siempre que se golpee primero la bola perteneciente al grupo del jugador.
                 </p>
 
                 <h3 class="headline mb-0">Bolas entroneradas ilegalmente</h3>                
                 <p style="padding: 30px; padding-bottom: 10px; text-align: justify">            
-                  Una bola de su grupo será considerada entronerada ilegalmente cuando en el mismo tiro se cometa falta, que la bola de color designada sea entronerada en lugar distinto al indicado o que exista un aviso de "seguridad" antes del tiro.
+                  Una bola de su grupo será considerada entronerada ilegalmente cuando en el mismo tiro se cometa falta, que la bola de color designada sea entronerada en lugar distinto al indicado.
                   <br><br>
                   Las bolas ilegalmente entroneradas permanecerán entroneradas.
                 </p>
@@ -176,38 +145,15 @@
                 <p style="padding: 30px; padding-bottom: 10px; text-align: justify">           
                   En aquellos casos en que una bola de color deba ser repuesta sobre la mesa, será colocada en la línea de pie detrás y tan cerca como sea posible del punto de pie, debiéndose ser colocada tocando cualquier otra bola que interfiera, excepto si se trata de la bola blanca.
                 </p>
-
-                <h3 class="headline mb-0">Bola pegada a la banda</h3>                
-                <p style="padding: 30px; padding-bottom: 10px; text-align: justify">
-                  Cuando se ejecuta un tiro en el que la bola de su grupo está pegada a la banda, se tomará como base el art.º 10 teniendo en cuenta que la bola que está pegada no se considera su validez al jugar contra ella en su contacto con la banda, siendo sin embargo válida esta banda para la bola blanca después de contactar con la de color y para esta de color si después de contactar la blanca contra ella esta se separara claramente de la banda antes de volver a contactar.
-                  <br><br>
-                  Una bola no se considerará pegada a banda, a menos que se examine por el árbitro o uno de los jugadores y así se indique antes de efectuar la jugada.
-                </p>
-
+              
                 <h3 class="headline mb-0">Bola blanca en contacto</h3>                
                 <p style="padding: 30px; padding-bottom: 10px; text-align: justify">
-                  Cuando la bola blanca se encuentra en contacto, con:
-                  <br><br>
-                  a) Una bola de la serie jugadora.
-                  <br><br>
-                  b) Una bola de la serie contraria.
-                  <br><br>
-                  c) Con la bola negra.
-                  <br><br>
-                  En el caso a), se podrá tirar sobre la bola de su serie, estando aceptado el arrastre, en caso contrario será falta y, se repone la bola entronerada si es de la serie jugadora, quedando entronerada si es de la serie contraria, en ambos casos, con bola en mano para el contrario.
-                  <br><br>
-                  En el caso b), se deberá tirar a banda o a otra bola. En caso de falta se aplicará lo especificado para el caso a).
-                  <br><br>
-                  En el caso c), cuando la bola negra es la última, será de aplicación el criterio para el caso a), si por el contrario, quedaran más bolas, deberá aplicarse el criterio para el caso b).
-                  <br><br>
-                  Será considerada como falta intencionada, y por ello bola en mano para el contrario, el jugar directamente sobre una bola del contrario o sobre la negra indebidamente. Caso de reincidencia, tras haber sido advertido el jugador, se castigará con partida nula.
+                  Cuando la bola blanca se encuentra en contacto, con otra bola, se debe jugar una bola diferente a esta.
                 </p>
 
                 <h3 class="headline mb-0">Jugando la bola 8</h3>                
                 <p style="padding: 30px; padding-bottom: 10px; text-align: justify">
                   Cuando se juega sobre la bola 8, el jugador en turno debe designar claramente, bien de forma verbal o físicamente, la tronera donde se va a intentar entronerarla, aun siendo obvio el destino de dicha bola.
-                  <br><br>
-                  Si el jugador oponente o el árbitro no entiende claramente cuál es la tronera elegida por el tirador, deberán preguntar antes de que éste inicie el tiro.
                 </p>
 
                 <h3 class="headline mb-0">Pérdida del juego</h3>                
@@ -226,34 +172,18 @@
                   <br><br>
                   f ) Entronerar la bola 8 y la bola blanca en el mismo tiro.
                 </p>
-
-                <h3 class="headline mb-0">Juego empatado</h3>                
-                <p style="padding: 30px; padding-bottom: 10px; text-align: justify">
-                  Si ninguno de los dos jugadores intentase entronerar legalmente una bola durante tres turnos consecutivos (seis turnos entre ambos jugadores), el juego será considerado como de empate, previa consulta a los jugadores y atendiendo siempre según criterio arbitral.
-                  <br><br>
-                  Si ambos jugadores llegaran al acuerdo de que intentar mover o entronerar una bola de color podría ser motivo de pérdida inmediata del juego, podrán pedir al árbitro coloque todas las bolas en el triángulo como al principio de la partida, volviendo a realizar el tiro de apertura el jugador que lo hiciera anteriormente.
-                  <br><br>
-                  Tres faltas consecutivas por parte de un jugador no significan pérdida de la partida.
-                </p>
-
-                <h3 class="headline mb-0">Descalificación</h3>                
-                <p style="padding: 30px; padding-bottom: 10px; text-align: justify">
-                  El Director Deportivo posee el derecho de descalificar de una competición a cualquier jugador con la subsiguiente pérdida de todo derecho a premio en metálico o cualquier otra clase de premio por conducta antideportiva o por uso de tácticas en detrimento de la prueba.
-                </p>
-
+                
                 <h3 class="headline mb-0">Consejos de los espectadores</h3>                
                 <p style="padding: 30px; padding-bottom: 10px; text-align: justify">
                   A los espectadores no les está permitido el aconsejar a ningún jugador durante la partida. Si después de pedirle a un espectador, bien por el árbitro o por el Director Deportivo, que depusiese su actitud, continuara haciéndolo, el árbitro deberá pedirle que abandone el área del torneo.
                 </p>
 
-                <h3 class="headline mb-0">Tiempo máximo para tirar</h3>                
+                <h3 class="headline mb-0">Consideraciones especiales</h3> 
                 <p style="padding: 30px; padding-bottom: 10px; text-align: justify">
-                  Cuando en opinión del árbitro un jugador está impidiendo la buena marcha del torneo o del juego con persistencia en el juego lento, podrá amonestar al jugador y, a su discreción, imponer un tiempo límite de un minuto entre tiros. Si a pesar de ello el jugador persistiera en su lentitud, se decretará falta, obteniendo el jugador contrario posición de bola en mano.
-                </p> 
-
-
-
-
+                	No está permitido separar una bola pegada a la banda, en ninguna circunstancia.<br>
+                	Si una bola no entra en la tronera o se sale de ella, se considera no entronerada.<br>
+                	<span style="color: red; font-weight: bold">No se pueden tocar las bolas en juego con las manos</span> a excepción de juego parado y por la ejecución de una falta.<br>
+                </p>
               </div>
 
             </v-card-title>

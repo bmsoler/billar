@@ -210,7 +210,7 @@ export default {
       username: '',  
       userImg: '',  
       userID: null,  
-      email: 'bmateo@aunnait.es',
+      email: '',
       password: null,
       clipped: false,
       drawer: true,

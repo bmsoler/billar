@@ -32,8 +32,8 @@ if (config.debug) {
 
 } else {
 
-	let key = fs.readFileSync('/usr/local/psa/var/modules/letsencrypt/etc/live/dev.aunnait.es/privkey.pem');
-	let cert = fs.readFileSync('/usr/local/psa/var/modules/letsencrypt/etc/live/dev.aunnait.es/cert.pem');	
+	let key = fs.readFileSync('/etc/letsencrypt/archive/torneos.aunnaitdev.es/privkey1.pem');
+	let cert = fs.readFileSync('/etc/letsencrypt/archive/torneos.aunnaitdev.es/cert1.pem');	
 	let options = {
 		key: key,
 		cert: cert

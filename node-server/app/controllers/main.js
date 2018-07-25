@@ -227,7 +227,7 @@ router.post('/deleteCampeonato', middleware.ensureAuthenticated, function (req, 
 
 // Route to authenticate a user (POST http://localhost:3020/authenticate)
 router.post('/authenticate', function (req, res) {  
-  console.log(req.body.email, req.body.password);
+  //console.log(req.body.email, req.body.password);
   User.findOne({
     email: req.body.email,
     password: req.body.password

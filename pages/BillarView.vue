@@ -27,7 +27,7 @@
                 left: 10px;
                 top: 60px;">
 
-                <v-list style="overflow: auto" v-bind:style="{  'height': events_height + 'px' }">
+                <v-list style="overflow: auto" v-bind:style="{  'max-height': events_height + 'px' }">
                 <v-list-tile avatar v-for="item in calendario" :key="item.title" @click="editEvento(item)">
                     <v-list-tile-action>
                     <v-icon color="grey">event</v-icon>
@@ -253,7 +253,7 @@ export default {
                     $(function() {
                         $('div#customHandlers .demo').bracket({
                             init: customData,
-                            teamWidth: 100,
+                            teamWidth: 140,
                             scoreWidth: 45,
                             matchMargin: 50,
                             roundMargin: 90,   
@@ -304,8 +304,8 @@ export default {
         openDialogAddEvento(){        
             this.info = ''
             this.fecha = ''
-            this.avatar = '/static/img/'
-            this.avatar2 = '/static/img/'
+            this.avatar = '/static/img/user.png'
+            this.avatar2 = '/static/img/user.png'
             this.dialogAddEvento = true
             this.current_id_evento_to_update = null
         },
@@ -409,7 +409,7 @@ export default {
 
         //Ajuste al height de la pantalla actual
         this.window_height = window.innerHeight - 150;   
-        this.events_height = window.innerHeight - 590;   
+        this.events_height = window.innerHeight - 700;   
 
         this.init()
 
